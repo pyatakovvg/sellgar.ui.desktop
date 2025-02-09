@@ -1,0 +1,40 @@
+{
+  "name": "root",
+  "license": "UNLICENSED",
+  "scripts": {
+    "update": "yarn upgrade-interactive",
+    "format": "prettier --write \"**/src/**/*.{ts,tsx}\" \"**/test/**/*.ts\" \"**/prisma/**/*.ts\"",
+    "lint": "eslint \"**/{src,test}/**/*.{ts,tsx}\" --fix",
+    "dev:desktop_ui": "yarn workspace @client/admin start",
+    "dev:storybook": "yarn workspace @client/storybook start",
+    "start:storybook": "yarn workspace @client/storybook start",
+    "build:desktop_ui": "yarn workspaces foreach --all -tR --from '@client/admin' -R run build",
+    "build:storybook": "yarn workspaces foreach -tR --from '@client/storybook' -R run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.20.0",
+    "@types/node": "22.13.1",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
+    "@typescript-eslint/eslint-plugin": "8.23.0",
+    "@typescript-eslint/parser": "8.23.0",
+    "eslint": "9.20.0",
+    "eslint-config-prettier": "10.0.1",
+    "eslint-plugin-prettier": "5.2.3",
+    "prettier": "3.5.0",
+    "typescript": "5.7.3"
+  },
+  "workspaces": [
+    "clients/**/*",
+    "helpers/*",
+    "library/*",
+    "pages/**/*",
+    "utils/**/*",
+    "widgets/**/*",
+    "layouts/**/*"
+  ],
+  "engines": {
+    "node": "^22"
+  },
+  "packageManager": "yarn@3.6.1"
+}
