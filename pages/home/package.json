@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@page/home",
+  "version": "0.0.1",
+  "description": "List components",
+  "author": "Viktor Pyatakov <pyatakov.viktor@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "dependencies": {
+    "react": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.8"
+  }
+}

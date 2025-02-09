@@ -1,0 +1,22 @@
+:root {
+
+  --font-size-heading-1: 48px;
+  --font-size-heading-2: 32px;
+  --font-size-heading-3: 24px;
+  --font-size-heading-4: 20px;
+  --font-size-heading-5: 14px;
+
+  --font-size-text: 16px;
+  --font-size-text--compact: 14px;
+
+  --font-size-description: 12px;
+  --font-size-description--compact: 10px;
+
+  --font-weight-sm: 300;
+  --font-weight-md: 400;
+  --font-weight-lg: 700;
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+}

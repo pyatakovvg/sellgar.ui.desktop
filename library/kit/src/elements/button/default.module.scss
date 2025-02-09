@@ -1,0 +1,22 @@
+.wrapper {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  text-decoration: none;
+  background: red;
+  border-radius: var(--border-radius-md);
+  padding: 0 10px;
+  height: 40px;
+  cursor: pointer;
+
+  &:disabled {
+    background: gray;
+  }
+}
+
+.content {
+
+  padding: 0 10px;
+}

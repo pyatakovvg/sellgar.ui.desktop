@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "@layout/root",
+  "version": "0.0.1",
+  "description": "Kit",
+  "author": "Viktor Pyatakov <pyatakov.viktor@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@library/kit": "0.0.1",
+    "classnames": "2.5.1",
+    "react": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.8"
+  }
+}

@@ -1,0 +1,20 @@
+.wrapper {
+
+  --color-text: var(--color-black);
+
+  font-size: var(--font-size-description);
+  font-weight: var(--font-weight-md);
+  color: var(--color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrapper {
+    --color-text: var(--color-white);
+  }
+}
+
+.variant {
+  &--compact {
+    font-size: var(--font-size-description--compact);
+  }
+}

@@ -1,0 +1,40 @@
+:root {
+
+  --color-white: white;
+  --color-black: black;
+
+  --color-gray-0: #e6e5e5;
+  --color-gray-20: #afafaf;
+  --color-gray-40: #8d8d8d;
+  --color-gray-60: #606060;
+  --color-gray-80: #2f2f2f;
+  --color-gray-100: #1f1f1f;
+
+  --color-red-0: transparent;
+  --color-red-20: transparent;
+  --color-red-40: #ed505b;
+  --color-red-60: #f23140;
+  --color-red-80: transparent;
+  --color-red-100: transparent;
+
+  --color-green-0: transparent;
+  --color-green-20: transparent;
+  --color-green-40: transparent;
+  --color-green-60: #00ac39;
+  --color-green-80: transparent;
+  --color-green-100: transparent;
+
+  --color-blue-0: transparent;
+  --color-blue-20: #42a4ff;
+  --color-blue-40: transparent;
+  --color-blue-60: #006bff;
+  --color-blue-80: transparent;
+  --color-blue-100: transparent;
+
+  --color-yellow-0: transparent;
+  --color-yellow-20: transparent;
+  --color-yellow-40: transparent;
+  --color-yellow-60: #ff9500;
+  --color-yellow-80: transparent;
+  --color-yellow-100: transparent;
+}

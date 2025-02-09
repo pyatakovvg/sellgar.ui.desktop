@@ -1,0 +1,19 @@
+@import "./reset.css";
+@import "./palette.css";
+@import "./variables.css";
+
+@import "./fonts/nunito-sans/index.css";
+
+
+
+html,
+body {
+
+  font-family: NunitoSans, Arial, Helvetica, sans-serif;
+  max-width: 100vw;
+  max-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+

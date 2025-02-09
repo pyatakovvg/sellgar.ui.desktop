@@ -1,0 +1,32 @@
+.wrapper {
+
+  --color-text: var(--color-black);
+
+  font-size: var(--font-size-heading-1);
+  font-weight: var(--font-weight-lg);
+  color: var(--color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrapper {
+    --color-text: var(--color-white);
+  }
+}
+
+.variant {
+  &--h2 {
+    font-size: var(--font-size-heading-2);
+  }
+
+  &--h3 {
+    font-size: var(--font-size-heading-3);
+  }
+
+  &--h4 {
+    font-size: var(--font-size-heading-4);
+  }
+
+  &--h5 {
+    font-size: var(--font-size-heading-5);
+  }
+}
