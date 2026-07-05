@@ -11,12 +11,12 @@
     "@layout/root": "0.0.1",
     "@library/kit": "0.0.1",
     "@page/home": "0.0.1",
-    "next": "16.2.9",
+    "next": "16.2.10",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@types/node": "26.0.1",
+    "@types/node": "26.1.0",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "sass": "1.101.0",
