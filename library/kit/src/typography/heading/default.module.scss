@@ -7,12 +7,6 @@
   color: var(--color-text);
 }
 
-@media (prefers-color-scheme: dark) {
-  .wrapper {
-    --color-text: var(--color-white);
-  }
-}
-
 .variant {
   &--h2 {
     font-size: var(--font-size-heading-2);
