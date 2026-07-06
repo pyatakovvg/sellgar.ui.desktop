@@ -34,14 +34,38 @@ async function getProducts() {
 }
 
 function normalizeImageUrls(products: StorefrontProduct[]) {
-  return products.map((product) => ({
+  return products.map((product) => normalizeProductImageUrls(product));
+}
+
+function normalizeProductImageUrls(product: StorefrontProduct) {
+  return {
     ...product,
+    product: {
+      ...product.product,
+      properties: normalizePropertyMetadataImageUrls(product.product.properties),
+    },
     variant: {
       ...product.variant,
+      properties: normalizePropertyMetadataImageUrls(product.variant.properties),
       images: product.variant.images.map((image) => ({
         ...image,
         imageUrl: new URL(image.imageUrl, CLIENT_GATEWAY_URL).toString(),
       })),
     },
+  };
+}
+
+function normalizePropertyMetadataImageUrls(properties: StorefrontProduct['product']['properties']) {
+  return properties?.map((property) => ({
+    ...property,
+    option: property.option
+      ? {
+          ...property.option,
+          metadata: property.option.metadata.map((metadata) => ({
+            ...metadata,
+            imageUrl: metadata.imageUrl ? new URL(metadata.imageUrl, CLIENT_GATEWAY_URL).toString() : metadata.imageUrl,
+          })),
+        }
+      : property.option,
   }));
 }

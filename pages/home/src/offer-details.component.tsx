@@ -6,6 +6,8 @@ import {
   formatStorefrontPrice,
   getStorefrontPreviewImage,
   type StorefrontProduct,
+  type StorefrontPropertyOptionMetadata,
+  type StorefrontPropertyValue,
 } from './home.component.tsx';
 import styles from './default.module.scss';
 
@@ -105,7 +107,9 @@ export const OfferDetailsComponent: React.FC<IProps> = ({ offer, siblingOffers, 
               {properties.map((item) => (
                 <div key={item.uuid}>
                   <dt>{item.property?.name ?? 'Свойство'}</dt>
-                  <dd>{item.value}</dd>
+                  <dd>
+                    <PropertyValue item={item} />
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -162,6 +166,61 @@ const StatusBlock: React.FC<{ title: string; text: string }> = ({ title, text })
   </section>
 );
 
+const PropertyValue: React.FC<{ item: StorefrontPropertyValue }> = ({ item }) => {
+  const value = item.option?.name || item.value;
+  const metadata = (item.option?.metadata ?? []).filter(isVisibleMetadata);
+
+  return (
+    <span className={styles.propertyValue}>
+      {metadata.map((metadataItem) => (
+        <PropertyMetadataPreview key={metadataItem.uuid} metadata={metadataItem} />
+      ))}
+      <span>{value}</span>
+    </span>
+  );
+};
+
+const PropertyMetadataPreview: React.FC<{ metadata: StorefrontPropertyOptionMetadata }> = ({ metadata }) => {
+  if (metadata.valueType === 'COLOR' && metadata.colorValue) {
+    return (
+      <span
+        className={styles.propertyColor}
+        style={{ backgroundColor: metadata.colorValue }}
+        aria-hidden="true"
+      />
+    );
+  }
+
+  if (metadata.valueType === 'IMAGE' && metadata.imageUrl) {
+    return (
+      <img
+        className={styles.propertyImage}
+        src={metadata.imageUrl}
+        alt=""
+        aria-hidden="true"
+      />
+    );
+  }
+
+  if (metadata.valueType === 'ICON' && metadata.iconCode) {
+    return (
+      <span className={styles.propertyIcon} aria-hidden="true">
+        {metadata.iconCode}
+      </span>
+    );
+  }
+
+  if (metadata.valueType === 'TEXT' && metadata.textValue) {
+    return <span className={styles.propertyMetadataText}>{metadata.textValue}</span>;
+  }
+
+  return null;
+};
+
+function isVisibleMetadata(metadata: StorefrontPropertyOptionMetadata) {
+  return Boolean(metadata.colorValue || metadata.imageUrl || metadata.iconCode || metadata.textValue);
+}
+
 function getProductInitials(name: string) {
   return name
     .split(' ')
@@ -184,6 +243,6 @@ function getDescriptionSections(offer: StorefrontProduct) {
   ].filter((section): section is { title: string; text: string } => Boolean(section));
 }
 
-function getProperties(offer: StorefrontProduct) {
+function getProperties(offer: StorefrontProduct): StorefrontPropertyValue[] {
   return [...(offer.product.properties ?? []), ...(offer.variant.properties ?? [])];
 }

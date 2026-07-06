@@ -11,6 +11,33 @@ export interface StorefrontProductResult {
   };
 }
 
+export interface StorefrontPropertyOptionMetadata {
+  uuid: string;
+  valueType: 'TEXT' | 'COLOR' | 'IMAGE' | 'ICON';
+  sortOrder: number;
+  textValue?: string | null;
+  colorValue?: string | null;
+  fileUuid?: string | null;
+  imageUrl?: string | null;
+  iconCode?: string | null;
+}
+
+export interface StorefrontPropertyOption {
+  uuid: string;
+  name: string;
+  metadata: StorefrontPropertyOptionMetadata[];
+}
+
+export interface StorefrontPropertyValue {
+  uuid: string;
+  optionUuid?: string | null;
+  value: string;
+  property?: {
+    name: string;
+  } | null;
+  option?: StorefrontPropertyOption | null;
+}
+
 export interface StorefrontProduct {
   uuid: string;
   offerUuid: string;
@@ -24,13 +51,7 @@ export interface StorefrontProduct {
     uuid: string;
     name: string;
     description: string;
-    properties?: {
-      uuid: string;
-      value: string;
-      property?: {
-        name: string;
-      } | null;
-    }[];
+    properties?: StorefrontPropertyValue[];
   };
   brand?: {
     name: string;
@@ -42,13 +63,7 @@ export interface StorefrontProduct {
     uuid?: string;
     name: string;
     description?: string;
-    properties?: {
-      uuid: string;
-      value: string;
-      property?: {
-        name: string;
-      };
-    }[];
+    properties?: StorefrontPropertyValue[];
     images: {
       imageUrl: string;
       fileName?: string;

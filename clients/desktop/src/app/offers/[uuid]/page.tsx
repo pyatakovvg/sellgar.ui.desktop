@@ -49,19 +49,39 @@ async function getOfferDetails(uuid: string) {
 
 function normalizeImageUrls(product: StorefrontProduct): StorefrontProduct;
 function normalizeImageUrls(products: StorefrontProduct[]): StorefrontProduct[];
-function normalizeImageUrls(value: StorefrontProduct | StorefrontProduct[]) {
+function normalizeImageUrls(value: StorefrontProduct | StorefrontProduct[]): StorefrontProduct | StorefrontProduct[] {
   if (Array.isArray(value)) {
     return value.map((product) => normalizeImageUrls(product));
   }
 
   return {
     ...value,
+    product: {
+      ...value.product,
+      properties: normalizePropertyMetadataImageUrls(value.product.properties),
+    },
     variant: {
       ...value.variant,
+      properties: normalizePropertyMetadataImageUrls(value.variant.properties),
       images: value.variant.images.map((image) => ({
         ...image,
         imageUrl: new URL(image.imageUrl, CLIENT_GATEWAY_URL).toString(),
       })),
     },
   };
+}
+
+function normalizePropertyMetadataImageUrls(properties: StorefrontProduct['product']['properties']) {
+  return properties?.map((property) => ({
+    ...property,
+    option: property.option
+      ? {
+          ...property.option,
+          metadata: property.option.metadata.map((metadata) => ({
+            ...metadata,
+            imageUrl: metadata.imageUrl ? new URL(metadata.imageUrl, CLIENT_GATEWAY_URL).toString() : metadata.imageUrl,
+          })),
+        }
+      : property.option,
+  }));
 }
