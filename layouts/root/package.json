@@ -10,9 +10,9 @@
   "dependencies": {
     "@library/kit": "0.0.1",
     "classnames": "2.5.1",
-    "react": "19.2.7"
+    "react": "19.2.8"
   },
   "devDependencies": {
-    "@types/react": "19.2.17"
+    "@types/react": "19.2.18"
   }
 }
