@@ -1,0 +1,115 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 32px;
+  color: var(--color-gray-100);
+}
+
+.backLink {
+  width: max-content;
+  color: var(--color-gray-80);
+  font-weight: var(--font-weight-lg);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--color-gray-100);
+}
+
+.offerDetails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  align-items: start;
+}
+
+.offerPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--color-gray-0);
+  border-radius: var(--border-radius-md);
+  background: #eef4f8;
+  color: #145c6a;
+  font-size: 64px;
+  font-weight: var(--font-weight-lg);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.brand {
+  color: var(--color-gray-60);
+  font-size: var(--font-size-text--compact);
+}
+.variant {
+  margin: 0;
+  font-weight: var(--font-weight-lg);
+}
+.description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.price {
+  font-size: var(--font-size-heading-2);
+  font-weight: var(--font-weight-lg);
+}
+.variantsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-gray-0);
+}
+.variantLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.variantLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-gray-0);
+  border-radius: var(--border-radius-md);
+  color: var(--color-gray-100);
+  text-decoration: none;
+}
+.variantName {
+  font-weight: var(--font-weight-lg);
+}
+.variantPrice {
+  color: var(--color-gray-60);
+}
+.status {
+  padding: var(--space-8);
+  border: 1px dashed var(--color-gray-20);
+  border-radius: var(--border-radius-md);
+}
+@media (max-width: 720px) {
+  .page {
+    padding: 20px;
+  }
+  .offerDetails {
+    grid-template-columns: 1fr;
+  }
+}

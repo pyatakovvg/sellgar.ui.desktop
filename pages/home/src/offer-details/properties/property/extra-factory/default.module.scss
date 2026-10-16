@@ -1,0 +1,14 @@
+.color,
+.image {
+  width: var(--space-6);
+  height: var(--space-6);
+  flex-shrink: 0;
+}
+.image {
+  border-radius: var(--border-radius-sm);
+  object-fit: cover;
+}
+.text {
+  color: var(--color-gray-60);
+  font-size: var(--font-size-description);
+}

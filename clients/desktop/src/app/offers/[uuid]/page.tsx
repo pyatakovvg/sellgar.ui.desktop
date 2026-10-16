@@ -1,21 +1,15 @@
 import { OfferDetailsComponent } from '@page/home';
-import type { StorefrontOfferDetailsResult, StorefrontProduct } from '@page/home';
+import { storefrontGateway } from '../../../server/storefront';
 
 export const dynamic = 'force-dynamic';
 
-const CLIENT_GATEWAY_URL =
-  process.env.CLIENT_GATEWAY_URL ?? process.env.NEXT_PUBLIC_CLIENT_GATEWAY_URL ?? 'http://localhost:4030';
-
 interface IProps {
-  params: Promise<{
-    uuid: string;
-  }>;
+  params: Promise<{ uuid: string }>;
 }
 
 export default async function OfferDetailsPage(props: IProps) {
   const { uuid } = await props.params;
-  const result = await getOfferDetails(uuid);
-
+  const result = await storefrontGateway.getByUuid(uuid);
   return (
     <OfferDetailsComponent
       offer={result.offer}
@@ -23,65 +17,4 @@ export default async function OfferDetailsPage(props: IProps) {
       failedToLoad={result.failedToLoad}
     />
   );
-}
-
-async function getOfferDetails(uuid: string) {
-  try {
-    const response = await fetch(`${CLIENT_GATEWAY_URL}/v1/offers/${uuid}`, {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      return { offer: null, siblingOffers: [], failedToLoad: response.status >= 500 };
-    }
-
-    const result = (await response.json()) as StorefrontOfferDetailsResult;
-
-    return {
-      offer: normalizeImageUrls(result.offer),
-      siblingOffers: normalizeImageUrls(result.siblingOffers ?? []),
-      failedToLoad: false,
-    };
-  } catch {
-    return { offer: null, siblingOffers: [], failedToLoad: true };
-  }
-}
-
-function normalizeImageUrls(product: StorefrontProduct): StorefrontProduct;
-function normalizeImageUrls(products: StorefrontProduct[]): StorefrontProduct[];
-function normalizeImageUrls(value: StorefrontProduct | StorefrontProduct[]): StorefrontProduct | StorefrontProduct[] {
-  if (Array.isArray(value)) {
-    return value.map((product) => normalizeImageUrls(product));
-  }
-
-  return {
-    ...value,
-    product: {
-      ...value.product,
-      properties: normalizePropertyMetadataImageUrls(value.product.properties),
-    },
-    variant: {
-      ...value.variant,
-      properties: normalizePropertyMetadataImageUrls(value.variant.properties),
-      images: value.variant.images.map((image) => ({
-        ...image,
-        imageUrl: new URL(image.imageUrl, CLIENT_GATEWAY_URL).toString(),
-      })),
-    },
-  };
-}
-
-function normalizePropertyMetadataImageUrls(properties: StorefrontProduct['product']['properties']) {
-  return properties?.map((property) => ({
-    ...property,
-    option: property.option
-      ? {
-          ...property.option,
-          metadata: property.option.metadata.map((metadata) => ({
-            ...metadata,
-            imageUrl: metadata.imageUrl ? new URL(metadata.imageUrl, CLIENT_GATEWAY_URL).toString() : metadata.imageUrl,
-          })),
-        }
-      : property.option,
-  }));
 }
