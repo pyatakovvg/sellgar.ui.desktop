@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import type { StorefrontFieldInput } from '../../../../input/storefront-field.input.ts';
+import type { ProductFieldEntity } from '@library/domain';
 import { formatPropertyValue } from './property-value.formatter.ts';
 
-const empty: StorefrontFieldInput['values'][number] = {
+const empty: ProductFieldEntity['values'][number] = {
   valueText: null,
   valueInteger: null,
   valueDecimal: null,

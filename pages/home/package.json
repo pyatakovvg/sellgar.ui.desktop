@@ -8,9 +8,16 @@
   "license": "ISC",
   "main": "src/index.ts",
   "dependencies": {
+    "@library/domain": "workspace:*",
+    "@sellgar/kit": "workspace:*",
+    "next": "16.4.2",
     "react": "19.3.1"
   },
   "devDependencies": {
     "@types/react": "19.3.0"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "react-dom": "^19"
   }
 }

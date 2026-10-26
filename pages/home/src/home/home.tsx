@@ -1,12 +1,13 @@
-import { Heading, Text } from '@library/kit';
+'use client';
+import { Typography, Badge } from '@sellgar/kit';
 import React from 'react';
 
-import type { StorefrontOfferInput } from '../input/storefront-offer.input.ts';
+import type { StoreOfferEntity } from '@library/domain';
 import { Card } from './card';
 import s from './default.module.scss';
 
 interface IProps {
-  products: StorefrontOfferInput[];
+  products: StoreOfferEntity[];
   failedToLoad?: boolean;
 }
 
@@ -15,28 +16,28 @@ export const HomeComponent: React.FC<IProps> = (props) => {
     <div className={s.page}>
       <section className={s.summary}>
         <div>
-          <Heading>
+          <Typography size="h4" weight="semi-bold">
             <h1>Каталог товаров</h1>
-          </Heading>
-          <Text>
+          </Typography>
+          <Typography size="body-s" weight="regular">
             <p>Доступные позиции магазина</p>
-          </Text>
+          </Typography>
         </div>
-        <span className={s.counter}>{props.products.length}</span>
+        <Badge label={props.products.length} color="gray" />
       </section>
       {props.failedToLoad || props.products.length === 0 ? (
         <section className={s.status}>
-          <Heading variant={'h4'}>
+          <Typography size="h6" weight="semi-bold">
             <h2>{props.failedToLoad ? 'Не удалось загрузить товары' : 'Товаров пока нет'}</h2>
-          </Heading>
-          <Text>
+          </Typography>
+          <Typography size="body-s" weight="regular">
             <p>{props.failedToLoad ? 'Попробуйте обновить страницу позже' : 'На витрине нет активных позиций'}</p>
-          </Text>
+          </Typography>
         </section>
       ) : (
         <section className={s.grid}>
           {props.products.map((offer) => (
-            <Card key={offer.offerUuid} offer={offer} />
+            <Card key={offer.uuid} offer={offer} />
           ))}
         </section>
       )}

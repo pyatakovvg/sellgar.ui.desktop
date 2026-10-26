@@ -1,15 +1,17 @@
-import { Heading, Text } from '@library/kit';
+'use client';
+import { Typography } from '@sellgar/kit';
 import React from 'react';
+import Link from 'next/link';
 
-import type { StorefrontOfferInput } from '../input/storefront-offer.input.ts';
+import type { StoreOfferEntity } from '@library/domain';
 import { formatPrice, getInitials, getPreviewImage } from '../formatter/offer.formatter.ts';
 import { Records } from './records';
 import { Properties } from './properties';
 import s from './default.module.scss';
 
 interface IProps {
-  offer?: StorefrontOfferInput | null;
-  siblingOffers: StorefrontOfferInput[];
+  offer?: StoreOfferEntity | null;
+  siblingOffers: StoreOfferEntity[];
   failedToLoad?: boolean;
 }
 
@@ -17,20 +19,20 @@ export const OfferDetailsComponent: React.FC<IProps> = (props) => {
   if (props.failedToLoad || !props.offer) {
     return (
       <div className={s.page}>
-        <a className={s.backLink} href={'/'}>
+        <Link className={s.backLink} href={'/'}>
           Вернуться в каталог
-        </a>
+        </Link>
         <section className={s.status}>
-          <Heading variant={'h4'}>
+          <Typography size="h6" weight="semi-bold">
             <h1>{props.failedToLoad ? 'Не удалось загрузить предложение' : 'Предложение не найдено'}</h1>
-          </Heading>
-          <Text>
+          </Typography>
+          <Typography size="body-s" weight="regular">
             <p>
               {props.failedToLoad
                 ? 'Попробуйте обновить страницу позже'
                 : 'На витрине нет такого активного предложения'}
             </p>
-          </Text>
+          </Typography>
         </section>
       </div>
     );
@@ -38,41 +40,41 @@ export const OfferDetailsComponent: React.FC<IProps> = (props) => {
 
   const offer = props.offer;
   const image = getPreviewImage(offer);
-  const otherOffers = props.siblingOffers.filter((item) => item.offerUuid !== offer.offerUuid);
+  const otherOffers = props.siblingOffers.filter((item) => item.uuid !== offer.uuid);
 
   return (
     <div className={s.page}>
-      <a className={s.backLink} href={'/'}>
+      <Link className={s.backLink} href={'/'}>
         Вернуться в каталог
-      </a>
+      </Link>
       <section className={s.offerDetails}>
         <div className={s.offerPreview}>
           {image ? (
-            <img className={s.image} src={image.imageUrl} alt={image.fileName || offer.name} />
+            <img className={s.image} src={image.imageUrl} alt={image.fileName || offer.variant.name} />
           ) : (
             <span>{getInitials(offer.product.name)}</span>
           )}
         </div>
         <div className={s.offerInfo}>
           {offer.brand ? <span className={s.brand}>{offer.brand.name}</span> : null}
-          <Heading>
+          <Typography size="h4" weight="semi-bold">
             <h1 className={s.title}>{offer.product.name}</h1>
-          </Heading>
-          <Text>
+          </Typography>
+          <Typography size="body-s" weight="regular">
             <p className={s.variant}>{offer.variant.name}</p>
-          </Text>
+          </Typography>
           {offer.product.description ? (
-            <Text>
+            <Typography size="body-s" weight="regular">
               <p className={s.description}>{offer.product.description}</p>
-            </Text>
+            </Typography>
           ) : null}
           {offer.variant.description && offer.variant.description !== offer.product.description ? (
-            <Text>
+            <Typography size="body-s" weight="regular">
               <p className={s.description}>{offer.variant.description}</p>
-            </Text>
+            </Typography>
           ) : null}
           <div className={s.price}>{formatPrice(offer)}</div>
-          <Records key={offer.offerUuid} records={offer.records} />
+          <Records key={offer.uuid} records={offer.records} />
           {offer.product.properties.length > 0 ? (
             <Properties title={'О товаре'} fields={offer.product.properties} />
           ) : null}
@@ -83,15 +85,15 @@ export const OfferDetailsComponent: React.FC<IProps> = (props) => {
       </section>
       {otherOffers.length > 0 ? (
         <section className={s.variantsSection}>
-          <Heading variant={'h4'}>
+          <Typography size="h6" weight="semi-bold">
             <h2>Другие варианты товара</h2>
-          </Heading>
+          </Typography>
           <div className={s.variantLinks}>
             {otherOffers.map((item) => (
-              <a key={item.offerUuid} className={s.variantLink} href={`/offers/${item.offerUuid}`}>
+              <Link key={item.uuid} className={s.variantLink} href={`/offers/${item.uuid}`}>
                 <span className={s.variantName}>{item.variant.name}</span>
                 <span className={s.variantPrice}>{formatPrice(item)}</span>
-              </a>
+              </Link>
             ))}
           </div>
         </section>

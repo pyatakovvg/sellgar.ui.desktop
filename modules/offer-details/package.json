@@ -1,0 +1,22 @@
+{
+  "name": "@module/offer-details",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@library/domain": "workspace:*",
+    "@page/home": "workspace:*",
+    "@sellgar/app": "workspace:*",
+    "class-transformer": "0.5.1",
+    "react": "19.3.1"
+  },
+  "peerDependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "react-dom": "^19",
+    "reflect-metadata": "^0.2.2"
+  }
+}

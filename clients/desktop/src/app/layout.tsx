@@ -1,24 +1,24 @@
-import { Layout } from '@layout/root';
-import '@library/kit/src/theme/index.css';
+import '@sellgar/kit/inter.css';
+import '@sellgar/kit/geologica.css';
+import '@sellgar/kit/theme.css';
+
+import { withLayout } from '@sellgar/app/next';
 
 import React from 'react';
-
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Sellgar',
-  description: 'Интернет магазин',
-};
+import '../styles/global.css';
 
-const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const metadata: Metadata = { title: 'Sellgar', description: 'Интернет магазин' };
+
+const StorefrontLayout = withLayout(() => import('@layout/root'));
+
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <html lang="ru">
-      <head></head>
+    <html lang="ru" data-theme="light">
       <body>
-        <Layout>{children}</Layout>
+        <StorefrontLayout>{children}</StorefrontLayout>
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

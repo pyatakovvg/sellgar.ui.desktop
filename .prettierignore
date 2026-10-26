@@ -1,0 +1,7 @@
+library/sellgar.app.ui/
+library/sellgar.kit.ui/
+**/.next/
+**/types/
+**/node_modules/
+**/next-env.d.ts
+yarn.lock

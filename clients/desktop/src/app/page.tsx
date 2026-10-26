@@ -1,9 +1,5 @@
-import { HomeComponent } from '@page/home';
-import { storefrontGateway } from '../server/storefront';
+import { withModule } from '@sellgar/app/next';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Home() {
-  const result = await storefrontGateway.getAll();
-  return <HomeComponent products={result.products} failedToLoad={result.failedToLoad} />;
-}
+export default withModule(() => import('@module/catalog'));

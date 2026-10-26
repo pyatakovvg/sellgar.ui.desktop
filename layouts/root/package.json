@@ -8,11 +8,20 @@
   "license": "ISC",
   "main": "src/index.ts",
   "dependencies": {
-    "@library/kit": "0.0.1",
+    "@sellgar/app": "workspace:*",
+    "@sellgar/kit": "workspace:*",
     "classnames": "2.5.1",
+    "next": "16.4.2",
     "react": "19.3.1"
   },
   "devDependencies": {
     "@types/react": "19.3.0"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "react-dom": "^19",
+    "reflect-metadata": "^0.2.2"
   }
 }

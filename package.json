@@ -4,12 +4,14 @@
   "scripts": {
     "update": "yarn upgrade-interactive",
     "format": "prettier --write \"**/src/**/*.{ts,tsx}\" \"**/test/**/*.ts\" \"**/prisma/**/*.ts\"",
-    "lint": "eslint \"**/{src,test}/**/*.{ts,tsx}\" --fix",
+    "lint": "eslint clients layouts library/domain modules pages",
     "dev:desktop_ui": "yarn workspace @client/desktop dev",
     "dev:storybook": "yarn workspace @client/storybook start",
     "start:storybook": "yarn workspace @client/storybook start",
     "build:desktop_ui": "yarn workspace @client/desktop build",
-    "build:storybook": "yarn workspaces foreach -tR --from '@client/storybook' -R run build"
+    "build:storybook": "yarn workspaces foreach -tR --from '@client/storybook' -R run build",
+    "test:storefront": "node --import ./library/sellgar.app.ui/next/module/runtime/module-session/register-test-loader.mjs --test 'library/domain/**/*.test.ts' 'modules/**/*.test.ts' 'pages/home/**/*.test.ts'",
+    "typecheck": "yarn workspace @client/desktop typecheck"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -31,10 +33,11 @@
     "pages/**/*",
     "utils/**/*",
     "widgets/**/*",
-    "layouts/**/*"
+    "layouts/**/*",
+    "modules/**/*"
   ],
   "engines": {
-    "node": "^22"
+    "node": ">=24"
   },
   "packageManager": "yarn@4.18.0"
 }

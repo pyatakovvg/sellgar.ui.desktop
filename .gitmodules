@@ -1,0 +1,8 @@
+[submodule "library/sellgar.app.ui"]
+	path = library/sellgar.app.ui
+	url = git@github.com:pyatakovvg/sellgar.app.ui.git
+	branch = master
+[submodule "library/sellgar.kit.ui"]
+	path = library/sellgar.kit.ui
+	url = git@github.com:pyatakovvg/sellgar.kit.ui.git
+	branch = master

@@ -1,8 +1,8 @@
-import type { StorefrontFieldInput } from '../../../../input/storefront-field.input.ts';
+import type { ProductFieldEntity } from '@library/domain';
 
 export const formatPropertyValue = (
-  kind: StorefrontFieldInput['property']['kind'],
-  value: StorefrontFieldInput['values'][number],
+  kind: ProductFieldEntity['property']['kind'],
+  value: ProductFieldEntity['values'][number],
 ): string => {
   switch (kind) {
     case 'TEXT':
@@ -21,4 +21,5 @@ export const formatPropertyValue = (
     case 'OPTIONS':
       return '';
   }
+  return '';
 };

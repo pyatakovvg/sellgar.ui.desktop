@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { StorefrontFieldInput } from '../../../../input/storefront-field.input.ts';
+import type { ProductFieldEntity } from '@library/domain';
 import s from './default.module.scss';
 
 interface IProps {
-  extra: StorefrontFieldInput['property']['options'][number]['extras'][number];
+  extra: ProductFieldEntity['property']['options'][number]['extras'][number];
 }
 
 export const ExtraFactory: React.FC<IProps> = (props) => {

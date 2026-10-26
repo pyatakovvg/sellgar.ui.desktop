@@ -1,42 +1,44 @@
-import { Heading, Text } from '@library/kit';
+import { Typography, Badge } from '@sellgar/kit';
 import React from 'react';
+import Link from 'next/link';
 
-import type { StorefrontOfferInput } from '../../input/storefront-offer.input.ts';
+import type { StoreOfferEntity } from '@library/domain';
 import { formatPrice, getInitials, getPreviewImage } from '../../formatter/offer.formatter.ts';
 import s from './default.module.scss';
 
 interface IProps {
-  offer: StorefrontOfferInput;
+  offer: StoreOfferEntity;
 }
 
 export const Card: React.FC<IProps> = (props) => {
   const image = getPreviewImage(props.offer);
+  const description = props.offer.variant.description || props.offer.product.description;
   const available = props.offer.records.some((record) => record.inventory.available > 0);
   return (
-    <a className={s.card} href={`/offers/${props.offer.offerUuid}`}>
+    <Link className={s.card} href={`/offers/${props.offer.uuid}`}>
       <div className={s.preview}>
         {image ? (
-          <img className={s.image} src={image.imageUrl} alt={image.fileName || props.offer.name} />
+          <img className={s.image} src={image.imageUrl} alt={image.fileName || props.offer.variant.name} />
         ) : (
           <span>{getInitials(props.offer.product.name)}</span>
         )}
       </div>
       <div className={s.body}>
         {props.offer.brand ? <span className={s.brand}>{props.offer.brand.name}</span> : null}
-        <Heading variant={'h4'}>
+        <Typography size="h6" weight="semi-bold">
           <h2 className={s.title}>{props.offer.product.name}</h2>
-        </Heading>
+        </Typography>
         <span className={s.variant}>{props.offer.variant.name}</span>
-        {props.offer.description ? (
-          <Text variant={'compact'}>
-            <p className={s.description}>{props.offer.description}</p>
-          </Text>
+        {description ? (
+          <Typography size="caption-l" weight="regular">
+            <p className={s.description}>{description}</p>
+          </Typography>
         ) : null}
         <div className={s.footer}>
           <span className={s.price}>{formatPrice(props.offer)}</span>
-          <span className={s.availability}>{available ? 'В наличии' : 'Нет в наличии'}</span>
+          <Badge color={available ? 'green' : 'gray'} label={available ? 'В наличии' : 'Нет в наличии'} size="sm" />
         </div>
       </div>
-    </a>
+    </Link>
   );
 };

@@ -1,7 +1,7 @@
-import type { AccountingRecordInput } from '../input/accounting-record.input.ts';
-import type { StorefrontOfferInput } from '../input/storefront-offer.input.ts';
+import type { StoreAccountingRecordEntity } from '@library/domain';
+import type { StoreOfferEntity } from '@library/domain';
 
-export const formatPrice = (offer: StorefrontOfferInput): string => {
+export const formatPrice = (offer: StoreOfferEntity): string => {
   if (!offer.currentPrice) return 'Цена уточняется';
   const price = offer.currentPrice;
   const value = Number(price.value);
@@ -9,7 +9,7 @@ export const formatPrice = (offer: StorefrontOfferInput): string => {
   return `${formatted} ${price.currency?.value ?? price.currencyCode}`;
 };
 
-export const getPreviewImage = (offer: StorefrontOfferInput) => offer.variant.images.find((image) => image.imageUrl);
+export const getPreviewImage = (offer: StoreOfferEntity) => offer.variant.images.find((image) => image.imageUrl);
 
 export const getInitials = (name: string): string =>
   name
@@ -20,5 +20,5 @@ export const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
-export const getClarifications = (record: AccountingRecordInput): string[] =>
+export const getClarifications = (record: StoreAccountingRecordEntity): string[] =>
   [...record.clarifications].sort((left, right) => left.position - right.position).map((item) => item.value);

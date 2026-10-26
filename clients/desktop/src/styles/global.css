@@ -1,0 +1,12 @@
+html,
+body {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--background-surface-default);
+  color: var(--text-base-primary);
+}
+* {
+  box-sizing: border-box;
+}

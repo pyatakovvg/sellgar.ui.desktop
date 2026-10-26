@@ -1,34 +1,31 @@
-// eslint.config.js
+const parser = require('@typescript-eslint/parser');
+const typescript = require('@typescript-eslint/eslint-plugin');
+const prettier = require('eslint-plugin-prettier');
 
 module.exports = [
   {
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      ecmaVersion: 'latest',
-      project: 'tsconfig.json',
-      tsconfigRootDir: __dirname,
-      sourceType: 'module',
-      ecmaFeatures: {
-        arrowFunctions: true,
-      },
+    ignores: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/types/**',
+      '**/next-env.d.ts',
+      'library/sellgar.app.ui/**',
+      'library/sellgar.kit.ui/**',
+    ],
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser,
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'module', ecmaFeatures: { jsx: true } },
     },
-    plugins: ['@typescript-eslint/eslint-plugin'],
-    extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
-    ignorePatterns: ['eslint.config.js'],
+    plugins: { '@typescript-eslint': typescript, prettier },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-var-requires': 'off',
-      '@typescript-eslint/interface-name-prefix': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      ...typescript.configs.recommended.rules,
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/ban-types': [
-        'off',
-        {
-          extendDefaults: true,
-          types: { '{}': false },
-        },
-      ],
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'prettier/prettier': 'error',
     },
   },
 ];

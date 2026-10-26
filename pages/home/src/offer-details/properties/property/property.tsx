@@ -1,12 +1,12 @@
 import React from 'react';
 
-import type { StorefrontFieldInput } from '../../../input/storefront-field.input.ts';
+import type { ProductFieldEntity } from '@library/domain';
 import { formatPropertyValue } from './formatter/property-value.formatter.ts';
 import { ExtraFactory } from './extra-factory';
 import s from './default.module.scss';
 
 interface IProps {
-  field: StorefrontFieldInput;
+  field: ProductFieldEntity;
 }
 
 export const Property: React.FC<IProps> = (props) => {

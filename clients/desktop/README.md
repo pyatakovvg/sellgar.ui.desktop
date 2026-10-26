@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sellgar Desktop
 
-## Getting Started
+Next.js App Router с runtime `@sellgar/app/next` и UI kit `@sellgar/kit`.
+Требования: Node.js 24+ и Yarn 4.18.0.
+Команды выполняются из корня desktop-репозитория.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```sh
+git submodule update --init --recursive
+yarn install --immutable
+yarn dev:desktop_ui
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение: `http://localhost:3100`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Структура
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `library/sellgar.app.ui` и `library/sellgar.kit.ui` — Git submodules,
+  ветка `master`; parent фиксирует конкретные commits.
+- `clients/desktop/src/application` — фабрика `DesktopApplication` и
+  application bindings. `withApp()` подключает её в `next.config.ts`.
+- `clients/desktop/src/app` — маршруты Next; `/` и `/offers/[uuid]`
+  подключают framework-модули через `withModule()`.
+- `modules/catalog` и `modules/offer-details` — declarations, bindings,
+  controllers/loaders и view. View читает результат через `useLoaderData()`.
+- `layouts/root` — framework Layout, подключённый через `withLayout()`.
+- `pages/home` — существующие presentation-компоненты витрины.
+- `library/domain` — доменный пакет по структуре админки: публичный Service,
+  Entity отдельных предметных срезов и внутренний Store Gateway/Mapper. Config и HttpClient подключаются
+  через абстрактные порты в DomainBinding. HTTP проходит через RequestExecutor приложения. Внешние ответы валидируются;
+  модели содержат отдельные учетные записи, цены и свойства.
 
-## Learn More
+SSR выполняет loader в request-scoped приложении, а Next-адаптер передает
+plain snapshot в браузер. Сериализация и error-state принадлежат controller; доменные Service возвращают проверенные Entity и отклоняют ошибочные запросы. Гидратация использует этот результат; повторное
+чтение API при начальной гидратации не требуется. Переходами владеет Next.
 
-To learn more about Next.js, take a look at the following resources:
+SSR обращается к client gateway по `CLIENT_GATEWAY_URL`, затем
+`NEXT_PUBLIC_CLIENT_GATEWAY_URL`, затем `http://localhost:4030`.
+Явная клиентская ревалидация использует публичный
+`NEXT_PUBLIC_CLIENT_GATEWAY_URL` с тем же локальным fallback.
+Все чтения используют `cache: 'no-store'` и signal текущего loader.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Тема и шрифты kit подключаются в корневом Next layout. Компоненты используют
+публичные `Typography`, `Badge`, `Radio`; CSS Modules ссылаются на tokens kit.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Проверки
 
-## Deploy on Vercel
+```sh
+yarn typecheck
+yarn lint
+yarn test:storefront
+yarn build:desktop_ui
+yarn workspace @sellgar/app typecheck:core
+yarn workspace @sellgar/app typecheck:next
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+При обновлении библиотек сначала публикуется child commit, затем gitlinks
+в desktop, затем pointer desktop в workspace.
