@@ -3,9 +3,11 @@ import type { StoreOfferEntity } from '@library/domain';
 
 export const formatPrice = (offer: StoreOfferEntity): string => {
   if (!offer.currentPrice) return 'Цена уточняется';
+
   const price = offer.currentPrice;
   const value = Number(price.value);
   const formatted = Number.isFinite(value) ? value.toLocaleString('ru-RU') : price.value;
+
   return `${formatted} ${price.currency?.value ?? price.currencyCode}`;
 };
 

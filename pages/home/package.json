@@ -10,7 +10,7 @@
   "dependencies": {
     "@library/domain": "workspace:*",
     "@sellgar/kit": "workspace:*",
-    "next": "16.4.2",
+    "next": "16.4.5",
     "react": "19.3.1"
   },
   "devDependencies": {

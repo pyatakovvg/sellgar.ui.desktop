@@ -11,7 +11,7 @@
     "@sellgar/app": "workspace:*",
     "@sellgar/kit": "workspace:*",
     "classnames": "2.5.1",
-    "next": "16.4.2",
+    "next": "16.4.5",
     "react": "19.3.1"
   },
   "devDependencies": {

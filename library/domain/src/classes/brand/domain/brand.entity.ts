@@ -1,6 +1,7 @@
-import { Entity } from '@sellgar/app';
 import { Expose } from 'class-transformer';
 import { IsString, ValidateIf } from 'class-validator';
+
+import { Entity } from '@sellgar/app';
 
 @Entity({ identity: 'code' })
 export class BrandEntity {

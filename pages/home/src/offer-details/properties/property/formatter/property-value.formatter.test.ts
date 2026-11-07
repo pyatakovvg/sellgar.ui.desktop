@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+
 import type { ProductFieldEntity } from '@library/domain';
+
 import { formatPropertyValue } from './property-value.formatter.ts';
 
 const empty: ProductFieldEntity['values'][number] = {

@@ -1,13 +1,16 @@
 'use client';
-import { Typography } from '@sellgar/kit';
-import React from 'react';
+
 import Link from 'next/link';
+import React from 'react';
+
+import { Typography } from '@sellgar/kit';
 
 import type { StoreOfferEntity } from '@library/domain';
+
 import { formatPrice, getInitials, getPreviewImage } from '../formatter/offer.formatter.ts';
-import { Records } from './records';
-import { Properties } from './properties';
 import s from './default.module.scss';
+import { Properties } from './properties';
+import { Records } from './records';
 
 interface IProps {
   offer?: StoreOfferEntity | null;

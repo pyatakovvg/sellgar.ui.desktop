@@ -1,8 +1,11 @@
 'use client';
-import { Typography, Badge } from '@sellgar/kit';
+
 import React from 'react';
 
+import { Badge, Typography } from '@sellgar/kit';
+
 import type { StoreOfferEntity } from '@library/domain';
+
 import { Card } from './card';
 import s from './default.module.scss';
 

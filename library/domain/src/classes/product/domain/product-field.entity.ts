@@ -1,5 +1,6 @@
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDefined, IsInt, IsString, ValidateNested, IsBoolean } from 'class-validator';
+import { IsArray, IsBoolean, IsDefined, IsInt, IsString, ValidateNested } from 'class-validator';
+
 import { PropertyEntity } from '../../property/index.ts';
 import { PropertyValueEntity } from './property-value.entity.ts';
 

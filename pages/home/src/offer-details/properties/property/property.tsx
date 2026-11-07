@@ -1,9 +1,10 @@
 import React from 'react';
 
 import type { ProductFieldEntity } from '@library/domain';
-import { formatPropertyValue } from './formatter/property-value.formatter.ts';
-import { ExtraFactory } from './extra-factory';
+
 import s from './default.module.scss';
+import { ExtraFactory } from './extra-factory';
+import { formatPropertyValue } from './formatter/property-value.formatter.ts';
 
 interface IProps {
   field: ProductFieldEntity;
@@ -11,6 +12,7 @@ interface IProps {
 
 export const Property: React.FC<IProps> = (props) => {
   const options = props.field.property.options;
+
   return (
     <div className={s.wrapper}>
       <dt className={s.label}>{props.field.property.name}</dt>
@@ -22,6 +24,7 @@ export const Property: React.FC<IProps> = (props) => {
             .filter((value) => value.valueOptionCode !== null)
             .map((value) => {
               const option = options.find((item) => item.code === value.valueOptionCode);
+
               return (
                 <span key={value.valueOptionCode} className={s.option}>
                   {option?.extras.map((extra) => (

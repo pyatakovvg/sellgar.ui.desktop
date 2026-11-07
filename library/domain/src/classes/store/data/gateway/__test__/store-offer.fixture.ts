@@ -1,6 +1,9 @@
 import 'reflect-metadata';
+
 import { plainToInstance } from 'class-transformer';
+
 import { StoreOfferEntity } from '../../../domain/store-offer.entity.ts';
+
 export const offerUuid = '00000000-0000-4000-8000-000000000001';
 export const productUuid = '00000000-0000-4000-8000-000000000002';
 export const variantUuid = '00000000-0000-4000-8000-000000000003';

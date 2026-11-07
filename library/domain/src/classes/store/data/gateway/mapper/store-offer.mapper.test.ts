@@ -1,8 +1,12 @@
+import 'reflect-metadata';
+
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import 'reflect-metadata';
+
 import { instanceToPlain, plainToInstance } from 'class-transformer';
+
 import { ProductFieldEntity } from '@library/domain';
+
 import type { StoreOfferEntity } from '../../../domain/store-offer.entity.ts';
 import { createStoreOffer, imageUuid } from '../__test__/store-offer.fixture.ts';
 import { StoreOfferMapper } from './store-offer.mapper.ts';
@@ -13,6 +17,7 @@ const mapper = { toOffer: (offer: StoreOfferEntity) => StoreOfferMapper.toOffer(
 
 test('сохраняет отдельные записи, их артикулы, остатки и цену предложения', () => {
   const result = mapper.toOffer(createOffer());
+
   assert.deepEqual(
     result.records.map((record) => [record.uuid, record.article, record.inventory.available]),
     [
@@ -28,6 +33,7 @@ test('сохраняет отдельные записи, их артикулы,
 test('упорядочивает уточнения, не меняя исходный ответ gateway', () => {
   const source = createOffer();
   const before = instanceToPlain(source);
+
   assert.deepEqual(
     mapper.toOffer(source).records[0].clarifications.map((item) => item.value),
     ['S', 'Упаковка'],
@@ -37,6 +43,7 @@ test('упорядочивает уточнения, не меняя исход�
 
 test('работает с единственной записью без уточнений и с отсутствием записей', () => {
   const source = createOffer();
+
   source.records = [source.records[1]];
   assert.deepEqual(mapper.toOffer(source).records[0].clarifications, []);
   source.records = [];
@@ -45,6 +52,7 @@ test('работает с единственной записью без уто�
 
 test('разрешает изображения варианта и опций и сохраняет типизированные значения', () => {
   const source = createOffer();
+
   source.variant.images = [
     { imageUuid, imageUrl: '/v1/files/second', fileName: 'second.png', order: 1 },
     { imageUuid, imageUrl: 'https://cdn.example.test/first.png', fileName: 'first.png', order: 0 },
@@ -101,11 +109,13 @@ test('разрешает изображения варианта и опций �
   ]);
   const before = instanceToPlain(source);
   const result = mapper.toOffer(source);
+
   assert.deepEqual(
     result.variant.images.map((image) => image.imageUrl),
     ['https://cdn.example.test/first.png', 'http://localhost:4030/v1/files/second'],
   );
   const field = result.product.properties[0];
+
   assert.equal(field.property.options[0].extras[1].imageUrl, `http://localhost:4030/v1/files/${imageUuid}`);
   assert.equal(field.values[0].valueOptionCode, 'blue');
   assert.deepEqual(instanceToPlain(source), before);

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import type { ProductFieldEntity } from '@library/domain';
-import { Property } from './property';
+
 import s from './default.module.scss';
+import { Property } from './property';
 
 interface IProps {
   title: string;

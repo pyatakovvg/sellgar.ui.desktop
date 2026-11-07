@@ -1,8 +1,10 @@
-import { Typography, Badge } from '@sellgar/kit';
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
+
+import { Badge, Typography } from '@sellgar/kit';
 
 import type { StoreOfferEntity } from '@library/domain';
+
 import { formatPrice, getInitials, getPreviewImage } from '../../formatter/offer.formatter.ts';
 import s from './default.module.scss';
 
@@ -14,6 +16,7 @@ export const Card: React.FC<IProps> = (props) => {
   const image = getPreviewImage(props.offer);
   const description = props.offer.variant.description || props.offer.product.description;
   const available = props.offer.records.some((record) => record.inventory.available > 0);
+
   return (
     <Link className={s.card} href={`/offers/${props.offer.uuid}`}>
       <div className={s.preview}>

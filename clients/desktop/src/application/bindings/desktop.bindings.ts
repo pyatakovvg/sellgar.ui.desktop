@@ -1,4 +1,5 @@
 import { BindingModuleInterface, type BindingRegistryInterface } from '@sellgar/app';
+
 import { DomainBinding } from '@library/domain';
 
 export class DesktopBindings implements BindingModuleInterface {

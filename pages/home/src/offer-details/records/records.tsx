@@ -1,9 +1,14 @@
 'use client';
+
 import React from 'react';
+
 import { Radio } from '@sellgar/kit';
+
 import type { StoreAccountingRecordEntity } from '@library/domain';
+
 import { getClarifications } from '../../formatter/offer.formatter.ts';
 import s from './default.module.scss';
+
 interface IProps {
   records: StoreAccountingRecordEntity[];
 }
@@ -12,7 +17,9 @@ export const Records: React.FC<IProps> = (props) => {
   const [choice, setChoice] = React.useState<string | null>(null);
   const groupId = React.useId();
   const selectedUuid = records.find((record) => record.uuid === choice)?.uuid ?? records[0]?.uuid;
+
   if (records.length === 1) return null;
+
   return (
     <section className={s.wrapper}>
       {records.length > 0 ? (

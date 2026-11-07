@@ -1,6 +1,8 @@
-import { Entity } from '@sellgar/app';
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsString, ValidateIf, ValidateNested, IsUUID } from 'class-validator';
+import { IsArray, IsString, IsUUID, ValidateIf, ValidateNested } from 'class-validator';
+
+import { Entity } from '@sellgar/app';
+
 import { ProductFieldEntity } from '../../product/index.ts';
 import { VariantImageEntity } from './variant-image.entity.ts';
 

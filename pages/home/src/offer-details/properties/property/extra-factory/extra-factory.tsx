@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { ProductFieldEntity } from '@library/domain';
+
 import s from './default.module.scss';
 
 interface IProps {

@@ -1,8 +1,10 @@
 'use client';
-import React from 'react';
+
 import Link from 'next/link';
-import { Typography } from '@sellgar/kit';
+import React from 'react';
+
 import type { LayoutViewProps } from '@sellgar/app/next';
+import { Typography } from '@sellgar/kit';
 
 import s from './default.module.scss';
 

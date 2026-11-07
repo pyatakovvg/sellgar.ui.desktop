@@ -1,9 +1,10 @@
-import { Entity } from '@sellgar/app';
 import { Expose, Type } from 'class-transformer';
 import { IsArray, IsDateString, IsDefined, IsInt, IsString, IsUUID, ValidateNested } from 'class-validator';
 
-import { StoreRecordInventoryEntity } from './store-record-inventory.entity.ts';
+import { Entity } from '@sellgar/app';
+
 import { StoreRecordClarificationEntity } from './store-record-clarification.entity.ts';
+import { StoreRecordInventoryEntity } from './store-record-inventory.entity.ts';
 
 @Entity({ identity: 'uuid' })
 export class StoreAccountingRecordEntity {

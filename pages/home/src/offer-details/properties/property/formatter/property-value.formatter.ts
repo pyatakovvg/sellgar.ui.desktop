@@ -15,11 +15,14 @@ export const formatPropertyValue = (
       return value.valueBoolean === null ? '' : value.valueBoolean ? 'Да' : 'Нет';
     case 'DATE': {
       if (!value.valueDate) return '';
+
       const date = new Date(value.valueDate);
+
       return Number.isNaN(date.getTime()) ? value.valueDate : date.toLocaleDateString('ru-RU', { timeZone: 'UTC' });
     }
     case 'OPTIONS':
       return '';
   }
+
   return '';
 };

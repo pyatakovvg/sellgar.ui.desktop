@@ -1,10 +1,15 @@
 import 'reflect-metadata';
+
 import assert from 'node:assert/strict';
-import { afterEach, test, mock } from 'node:test';
+import { afterEach, mock, test } from 'node:test';
+
 import { HttpException, NetworkError, NotFoundException } from '@sellgar/app';
+
 import { HttpClient } from '../http.client.ts';
+
 const client = new HttpClient();
 const url = new URL('https://gateway.example.test/v1/products');
+
 afterEach(() => mock.restoreAll());
 test('transport preserves HTTP status and request source for framework error handling', async () => {
   mock.method(globalThis, 'fetch', async () => new Response('unavailable', { status: 503 }));
@@ -21,6 +26,7 @@ test('transport distinguishes network failure from cancellation', async () => {
   });
   await assert.rejects(client.get(url), NetworkError);
   const abort = new AbortController();
+
   abort.abort();
   mock.method(globalThis, 'fetch', async () => {
     throw abort.signal.reason;

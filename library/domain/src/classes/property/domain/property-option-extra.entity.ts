@@ -1,7 +1,8 @@
+import { Expose } from 'class-transformer';
+import { IsEnum, IsInt, IsOptional, IsString, IsUUID, ValidateIf } from 'class-validator';
+
 import { PropertyOptionExtraKind } from './property-option-extra-kind.enum.ts';
 import { PropertyOptionTextDisplay } from './property-option-text-display.enum.ts';
-import { Expose } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional, IsString, ValidateIf, IsUUID } from 'class-validator';
 
 export class PropertyOptionExtraEntity {
   @Expose()

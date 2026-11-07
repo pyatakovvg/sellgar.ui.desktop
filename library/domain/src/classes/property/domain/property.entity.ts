@@ -1,7 +1,9 @@
-import { PropertyKind } from './property-kind.enum.ts';
-import { Entity } from '@sellgar/app';
 import { Expose, Type } from 'class-transformer';
 import { IsArray, IsEnum, IsString, ValidateIf, ValidateNested } from 'class-validator';
+
+import { Entity } from '@sellgar/app';
+
+import { PropertyKind } from './property-kind.enum.ts';
 import { PropertyOptionEntity } from './property-option.entity.ts';
 
 @Entity({ identity: 'code' })
