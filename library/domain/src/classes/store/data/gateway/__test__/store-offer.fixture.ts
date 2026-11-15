@@ -68,3 +68,17 @@ export const createStoreOffer = (): StoreOfferEntity =>
     createdAt: date,
     updatedAt: date,
   });
+
+export const categories = [
+  {
+    categoryUuid: 'f7959bed-68ee-4943-bc7d-31165e6c85a4',
+    items: [
+      { uuid: '68502785-e04a-47c2-a622-b57fa0de2a98', name: 'Дом' },
+      { uuid: 'f7959bed-68ee-4943-bc7d-31165e6c85a4', name: 'Кружки' },
+    ],
+  },
+  {
+    categoryUuid: 'dd0cdf36-6737-46fe-bb8f-f72a7ae824bd',
+    items: [{ uuid: 'dd0cdf36-6737-46fe-bb8f-f72a7ae824bd', name: 'Подарки' }],
+  },
+];

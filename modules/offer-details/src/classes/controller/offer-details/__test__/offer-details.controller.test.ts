@@ -8,6 +8,7 @@ import { NotFoundException } from '@sellgar/app';
 import type { StoreServiceInterface } from '@library/domain';
 
 import {
+  categories,
   createStoreOffer,
   offerUuid,
 } from '../../../../../../../library/domain/src/classes/store/data/gateway/__test__/store-offer.fixture.ts';
@@ -27,7 +28,7 @@ test('offer-details controller forwards its input to the service and serializes 
     findOfferByUuid: async (...args) => {
       received = args;
 
-      return { offer, siblingOffers: [offer] };
+      return { offer, siblingOffers: [offer], categories };
     },
   };
   const controller = new OfferDetailsController(service);
@@ -35,6 +36,8 @@ test('offer-details controller forwards its input to the service and serializes 
 
   assert.equal(result.offer?.uuid, offerUuid);
   assert.equal(result.siblingOffers.length, 1);
+  assert.deepEqual(result.categories, categories);
+  assert.equal(Object.getPrototypeOf(result.categories[0]), Object.prototype);
   assert.equal(result.failedToLoad, false);
   assert.equal(Object.getPrototypeOf(result.offer), Object.prototype);
   assert.deepEqual(received, [offerUuid, abort.signal]);
@@ -56,6 +59,7 @@ test('offer-details controller owns the UI failure state and propagates cancella
   assert.deepEqual(await controller.loader({ signal: abort.signal, params: { uuid: offerUuid } }), {
     offer: null,
     siblingOffers: [],
+    categories: [],
     failedToLoad: true,
   });
   abort.abort();
@@ -78,5 +82,5 @@ test('only the offer controller maps HTTP 404 into the missing-offer state', asy
     params: { uuid: offerUuid },
   });
 
-  assert.deepEqual(result, { offer: null, siblingOffers: [], failedToLoad: false });
+  assert.deepEqual(result, { offer: null, siblingOffers: [], categories: [], failedToLoad: false });
 });

@@ -5,9 +5,10 @@ import React from 'react';
 
 import { Typography } from '@sellgar/kit';
 
-import type { StoreOfferEntity } from '@library/domain';
+import type { CategoryPathEntity, StoreOfferEntity } from '@library/domain';
 
 import { formatPrice, getInitials, getPreviewImage } from '../formatter/offer.formatter.ts';
+import { Categories } from './categories';
 import s from './default.module.scss';
 import { Properties } from './properties';
 import { Records } from './records';
@@ -15,6 +16,7 @@ import { Records } from './records';
 interface IProps {
   offer?: StoreOfferEntity | null;
   siblingOffers: StoreOfferEntity[];
+  categories: CategoryPathEntity[];
   failedToLoad?: boolean;
 }
 
@@ -50,6 +52,7 @@ export const OfferDetailsComponent: React.FC<IProps> = (props) => {
       <Link className={s.backLink} href={'/'}>
         Вернуться в каталог
       </Link>
+      <Categories paths={props.categories} />
       <section className={s.offerDetails}>
         <div className={s.offerPreview}>
           {image ? (

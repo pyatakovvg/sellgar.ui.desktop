@@ -18,7 +18,7 @@ import { HttpClient } from '../../../../../infrastructure/http-client/http.clien
 import { StoreOfferEntity } from '../../../domain/store-offer.entity.ts';
 import { StoreOfferResultEntity } from '../../../domain/store-offer-result.entity.ts';
 import { StoreGateway } from '../store.gateway.ts';
-import { createStoreOffer, offerUuid } from './store-offer.fixture.ts';
+import { categories, createStoreOffer, offerUuid } from './store-offer.fixture.ts';
 
 class TestRequestExecutor extends RequestExecutorInterface {
   readonly abort = new AbortController();
@@ -139,13 +139,28 @@ test('offer detail and siblings are validated, mapped and returned as domain ins
   const { gateway } = createGateway();
   const offer = instanceToPlain(createStoreOffer());
 
-  mock.method(globalThis, 'fetch', async () => Response.json({ offer, siblingOffers: [offer] }));
+  mock.method(globalThis, 'fetch', async () => Response.json({ offer, siblingOffers: [offer], categories }));
   const result = await gateway.findOfferByUuid(offerUuid);
 
+  assert.deepEqual(instanceToPlain(result.categories), categories);
   assert.ok(result.offer instanceof StoreOfferEntity);
   assert.ok(result.siblingOffers[0] instanceof StoreOfferEntity);
   assert.deepEqual(
     result.offer.records[0].clarifications.map((x) => x.value),
     ['S', 'Упаковка'],
   );
+});
+
+test('offer category paths reject missing arrays, empty paths and invalid nested UUIDs', async () => {
+  const { gateway } = createGateway();
+  const offer = instanceToPlain(createStoreOffer());
+
+  for (const paths of [
+    undefined,
+    [{ ...categories[0], items: [] }],
+    [{ ...categories[0], items: [{ uuid: 'bad', name: 'Дом' }] }],
+  ]) {
+    mock.method(globalThis, 'fetch', async () => Response.json({ offer, siblingOffers: [offer], categories: paths }));
+    await assert.rejects(gateway.findOfferByUuid(offerUuid));
+  }
 });

@@ -18,17 +18,22 @@ export class OfferDetailsController implements OfferDetailsControllerInterface {
     try {
       const result = await this.storeService.findOfferByUuid(args.params.uuid, args.signal);
 
-      return this.toResult({ offer: result.offer, siblingOffers: result.siblingOffers, failedToLoad: false });
+      return this.toResult({
+        offer: result.offer,
+        siblingOffers: result.siblingOffers,
+        categories: result.categories,
+        failedToLoad: false,
+      });
     } catch (error) {
       if (args.signal?.aborted) throw error;
 
       if (isHttpException(error) && error.status === 404) {
-        return this.toResult({ offer: null, siblingOffers: [], failedToLoad: false });
+        return this.toResult({ offer: null, siblingOffers: [], categories: [], failedToLoad: false });
       }
 
       console.error('Unable to load storefront offer', error);
 
-      return this.toResult({ offer: null, siblingOffers: [], failedToLoad: true });
+      return this.toResult({ offer: null, siblingOffers: [], categories: [], failedToLoad: true });
     }
   }
 
