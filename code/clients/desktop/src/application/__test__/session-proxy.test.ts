@@ -71,3 +71,19 @@ test('keeps the existing device and rejects an unavailable session before render
   assert.equal(response.status, 503);
   assert.equal(response.headers.getSetCookie().length, 0);
 });
+
+test('gateway transport failure returns 503 without changing visitor cookies', async () => {
+  mock.method(globalThis, 'fetch', async () => {
+    throw new TypeError('fetch failed');
+  });
+  const response = await proxy(
+    new NextRequest('http://dev.sellgar.io/', {
+      headers: { cookie: 'sellgar.deviceUuid=existing-device; session=existing-session' },
+    }),
+  );
+
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.getSetCookie().length, 0);
+  assert.equal(response.headers.get('Cache-Control'), 'no-store');
+  assert.match(await response.text(), /Магазин временно недоступен/);
+});

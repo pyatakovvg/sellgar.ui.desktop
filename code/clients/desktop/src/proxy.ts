@@ -6,18 +6,24 @@ export async function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
   const deviceUuid = request.cookies.get(DEVICE_COOKIE)?.value ?? crypto.randomUUID();
   const gatewayUrl = process.env.CLIENT_GATEWAY_URL ?? process.env.PUBLIC_CLIENT_GATEWAY_URL ?? 'http://localhost:4030';
-  const session = await fetch(new URL('/v1/auth/session', gatewayUrl), {
-    method: 'POST',
-    cache: 'no-store',
-    headers: {
-      cookie: request.headers.get('cookie') ?? '',
-      'user-agent': request.headers.get('user-agent') ?? '',
-      'x-device-id': deviceUuid,
-    },
-    signal: request.signal,
-  });
+  let session: Response;
 
-  if (!session.ok) return new NextResponse('Не удалось подготовить сессию магазина.', { status: 503 });
+  try {
+    session = await fetch(new URL('/v1/auth/session', gatewayUrl), {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        cookie: request.headers.get('cookie') ?? '',
+        'user-agent': request.headers.get('user-agent') ?? '',
+        'x-device-id': deviceUuid,
+      },
+      signal: request.signal,
+    });
+  } catch {
+    return unavailable();
+  }
+
+  if (!session.ok) return unavailable();
 
   const principal: unknown = await session.json();
   const cookies = new Map(request.cookies.getAll().map(({ name, value }) => [name, value]));
@@ -46,6 +52,13 @@ export async function proxy(request: NextRequest) {
   response.headers.set('Cache-Control', 'private, no-store');
 
   return response;
+}
+
+function unavailable(): NextResponse {
+  return new NextResponse('Магазин временно недоступен. Попробуйте позже.', {
+    status: 503,
+    headers: { 'Cache-Control': 'no-store' },
+  });
 }
 
 export const config = { matcher: ['/', '/offers/:path*'] };

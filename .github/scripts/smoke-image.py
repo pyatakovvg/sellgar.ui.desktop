@@ -43,7 +43,7 @@ def request(base_url, path):
         return response.status, response.headers, response.read()
 
 
-def check_http(base_url, public_url):
+def check_http(base_url, public_url, backend_available=True):
     deadline = time.monotonic() + 45
     while True:
         try:
@@ -57,6 +57,12 @@ def check_http(base_url, public_url):
         time.sleep(0.25)
 
     status, headers, body = request(base_url, "/")
+    if not backend_available:
+        require(status == 503, "An unconfigured backend must return HTTP 503")
+        require("Магазин временно недоступен" in body.decode(), "Missing availability message")
+        require(not headers.get_all("Set-Cookie", []), "Outage must not replace session cookies")
+        require("no-store" in headers.get("Cache-Control", ""), "Outage must not be cached")
+        return
     require(status == 200 and b"<html" in body, "SSR catalog failed")
     require(public_url.encode() in body, "SSR did not serialize runtime public configuration")
     require(b"http://gateway:8080" not in body, "Private gateway address leaked into HTML")
@@ -91,13 +97,14 @@ def main(image):
             "--entrypoint", "node", image, "/fixture.mjs",
         )
         containers.append(gateway)
-        for environment in ["a", "b"]:
+        for environment in ["a", "b", "unconfigured"]:
             public_url = f"https://public-{environment}.smoke.invalid"
+            gateway_url = "" if environment == "unconfigured" else "http://gateway:8080"
             with tempfile.TemporaryDirectory(prefix="storefront-env-") as directory:
                 Path(directory).chmod(0o755)
                 config = Path(directory) / ".env"
                 config.write_text(
-                    f"CLIENT_GATEWAY_URL=http://gateway:8080\n"
+                    f"CLIENT_GATEWAY_URL={gateway_url}\n"
                     f"PUBLIC_CLIENT_GATEWAY_URL={public_url}\n"
                     f"PUBLIC_SOCKET_GATEWAY_URL=https://socket-{environment}.smoke.invalid\n"
                     "PRIVATE_VALUE=private-smoke-sentinel\n"
@@ -117,14 +124,14 @@ def main(image):
                     require(docker("exec", container, "id", "-u") == "1000", "Next must run as node")
                     ports = json.loads(docker("inspect", "--format", "{{json .NetworkSettings.Ports}}", container))
                     port = ports["8080/tcp"][0]["HostPort"]
-                    check_http(f"http://127.0.0.1:{port}", public_url)
+                    check_http(f"http://127.0.0.1:{port}", public_url, backend_available=environment != "unconfigured")
                 except BaseException:
                     subprocess.run(["docker", "logs", container], check=False, timeout=10)
                     raise
                 finally:
                     docker("rm", "--force", container)
                     containers.remove(container)
-        print("Passed: same image with two mounted .env files, SSR/session/cart preload, private config isolation, assets, non-root read-only runtime")
+        print("Passed: same image with runtime .env, configured and absent backend, SSR/session/cart preload, private config isolation, assets, non-root read-only runtime")
     finally:
         for container in containers:
             docker("rm", "--force", container)
