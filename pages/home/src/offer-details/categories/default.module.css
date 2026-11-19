@@ -1,0 +1,6 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-8);
+  min-width: 0;
+}

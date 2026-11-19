@@ -1,0 +1,57 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--numbers-12);
+  padding: var(--numbers-12);
+  border-radius: var(--measurements-radius-lg);
+  background: var(--background-surface-neutral);
+  min-width: 0;
+}
+
+.single {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--numbers-12);
+  min-width: 0;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: var(--numbers-4);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.name {
+  margin: 0;
+  min-width: 0;
+  color: var(--text-base-primary);
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--numbers-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--text-accent-red);
+  overflow-wrap: anywhere;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  border-radius: var(--measurements-radius-xl);
+
+  &:focus-visible {
+    outline: var(--numbers-2) solid var(--border-base-info);
+    outline-offset: var(--numbers-2);
+  }
+}

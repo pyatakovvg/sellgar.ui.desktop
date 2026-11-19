@@ -1,0 +1,111 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: min(var(--numbers-400), calc(100vw - var(--numbers-24)));
+  max-height: calc(100dvh - var(--numbers-120));
+  color: var(--text-base-primary);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--numbers-16);
+  padding: var(--numbers-16);
+  flex-shrink: 0;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-4);
+  min-width: 0;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--numbers-8);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-size-body-l);
+  line-height: var(--typography-line-height-body-l);
+  font-weight: var(--typography-weight-semi-bold);
+}
+
+.shop,
+.message {
+  margin: 0;
+  color: var(--text-base-secondary);
+  font-size: var(--typography-size-caption-l);
+  line-height: var(--typography-line-height-caption-l);
+  overflow-wrap: anywhere;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.scroll {
+  max-height: min(var(--numbers-320), 50dvh);
+  min-height: 0;
+}
+
+.items {
+  margin: 0;
+  padding: 0 var(--numbers-16);
+  list-style: none;
+
+  &:focus-visible {
+    outline: var(--numbers-2) solid var(--border-base-info);
+    outline-offset: calc(var(--numbers-2) * -1);
+  }
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: var(--numbers-16);
+  padding: var(--numbers-16);
+  border-top: var(--numbers-1) solid var(--border-base-divider);
+  font-size: var(--typography-size-body-s);
+  line-height: var(--typography-line-height-body-s);
+}
+
+.amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: var(--typography-weight-semi-bold);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--numbers-8);
+  padding: var(--numbers-16);
+}
+
+.empty-title {
+  margin: 0;
+  font-weight: var(--typography-weight-medium);
+}
+
+.link {
+  color: var(--text-accent-blue);
+  font-size: var(--typography-size-caption-l);
+  text-underline-offset: var(--numbers-3);
+
+  &:focus-visible {
+    outline: var(--numbers-2) solid var(--border-base-info);
+    outline-offset: var(--numbers-2);
+    border-radius: var(--measurements-radius-xs);
+  }
+}

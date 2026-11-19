@@ -1,0 +1,109 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-24);
+  width: min(var(--numbers-1180), 100%);
+  margin: 0 auto;
+  padding: var(--numbers-32);
+  color: var(--text-base-primary);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-16);
+  min-width: 0;
+}
+
+.title,
+.brand,
+.price,
+.paragraph {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--numbers-32);
+  min-width: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-20);
+  min-width: 0;
+}
+
+.brand {
+  color: var(--text-base-secondary);
+}
+
+.variants {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--numbers-8);
+  min-width: 0;
+}
+
+.price {
+  font-variant-numeric: tabular-nums;
+}
+
+.purchase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-20);
+  min-width: 0;
+}
+
+.singlePurchase {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--numbers-12) var(--numbers-24);
+  min-width: 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-12);
+  padding-top: var(--numbers-8);
+  color: var(--text-base-primary);
+  white-space: pre-wrap;
+}
+
+.attributes,
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--numbers-24);
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--numbers-24) var(--numbers-16);
+  }
+
+  .overview {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--numbers-24);
+  }
+}
+
+@media (max-width: 360px) {
+  .page {
+    padding-inline: 0;
+  }
+
+  .heading {
+    padding-inline: var(--numbers-16);
+  }
+}

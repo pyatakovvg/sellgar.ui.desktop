@@ -1,0 +1,9 @@
+.color {
+  width: var(--numbers-24);
+  height: var(--numbers-24);
+  flex-shrink: 0;
+}
+
+.text {
+  color: var(--text-base-secondary);
+}

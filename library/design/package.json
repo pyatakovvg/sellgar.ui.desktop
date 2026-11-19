@@ -1,0 +1,19 @@
+{
+  "name": "@library/design",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Reusable storefront presentation components",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@sellgar/kit": "workspace:*",
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0"
+  }
+}

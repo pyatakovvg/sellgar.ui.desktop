@@ -1,0 +1,25 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--numbers-12);
+}
+.label {
+  color: var(--text-base-secondary);
+  overflow-wrap: anywhere;
+}
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--numbers-8);
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--numbers-8);
+}
+.unit {
+  color: var(--text-base-secondary);
+}
