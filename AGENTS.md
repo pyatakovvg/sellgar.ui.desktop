@@ -1,6 +1,11 @@
 # Sellgar Desktop Storefront
 
-- Next.js App Router, React. Запуск из корня: `yarn dev:desktop_ui`, порт 3100.
+- Исходники и Yarn workspace находятся в `code/`; следующие source paths относительны к `code/`.
+- Next.js App Router, React. Запуск из `code/`: `yarn dev:desktop_ui`, порт 3100.
+- В корне находятся Dockerfile, .github/ и helm/. Helm values и содержимое .env каждой среды принадлежат этому репозиторию; общий chart — инфраструктуре.
+- Runtime образа — standalone Next.js на Node.js 24, .env монтируется в /app/clients/desktop/.env и читается командой node --env-file=.env server.js.
+- CLIENT_GATEWAY_URL — серверный HTTP endpoint. PUBLIC_CLIENT_GATEWAY_URL и PUBLIC_SOCKET_GATEWAY_URL — только публичные адреса; StorefrontConfigState передаёт их в browser bootstrap. NEXT_PUBLIC_* для конфигурации среды не использовать: эти значения фиксируются сборкой.
+- Запросы SSR используют серверный endpoint; imageUrl формируются через отдельный public gateway URL. В snapshot не передаются private env или внутренний адрес gateway.
 - HTTP-контракт витрины принадлежит client gateway (4030): `/v1/products`, `/v1/offers/:uuid`.
 - Runtime — nested submodule `library/sellgar.app.ui`, UI kit — `library/sellgar.kit.ui`.
 - `clients/desktop/src/application` владеет bootstrap и URL/config bindings; `withApp()` подключает Next-адаптер.

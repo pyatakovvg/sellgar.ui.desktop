@@ -1,0 +1,13 @@
+replicas: 2
+
+ingress:
+  enabled: false
+
+configmaps:
+  - nameOverride: storefront-env
+    enabled: true
+    filename: .env
+    data: |
+      CLIENT_GATEWAY_URL=
+      PUBLIC_CLIENT_GATEWAY_URL=
+      PUBLIC_SOCKET_GATEWAY_URL=

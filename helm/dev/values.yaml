@@ -1,0 +1,13 @@
+replicas: 2
+
+ingress:
+  host: dev.sellgar.io
+
+configmaps:
+  - nameOverride: storefront-env
+    enabled: true
+    filename: .env
+    data: |
+      CLIENT_GATEWAY_URL=http://localhost:4030
+      PUBLIC_CLIENT_GATEWAY_URL=http://localhost:4030
+      PUBLIC_SOCKET_GATEWAY_URL=http://localhost:4040
