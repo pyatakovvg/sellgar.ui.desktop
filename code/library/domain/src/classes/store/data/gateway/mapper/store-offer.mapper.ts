@@ -1,3 +1,5 @@
+import { resolveGatewayUrl } from '@library/domain/gateway-url';
+
 import type { ProductFieldEntity } from '../../../../product/index.ts';
 import type { StoreOfferEntity } from '../../../domain/store-offer.entity.ts';
 
@@ -13,7 +15,7 @@ export class StoreOfferMapper {
           .sort((left, right) => left.order - right.order)
           .map((image) => ({
             ...image,
-            imageUrl: new URL(image.imageUrl, gatewayUrl).toString(),
+            imageUrl: resolveGatewayUrl(image.imageUrl, gatewayUrl).toString(),
           })),
       },
       records: offer.records.map((record) => ({
@@ -38,7 +40,7 @@ export class StoreOfferMapper {
                 ...extra,
                 imageUrl:
                   extra.type === 'IMAGE' && extra.imageUuid
-                    ? new URL(`/v1/files/${encodeURIComponent(extra.imageUuid)}`, gatewayUrl).toString()
+                    ? resolveGatewayUrl(`/v1/files/${encodeURIComponent(extra.imageUuid)}`, gatewayUrl).toString()
                     : undefined,
               })),
           })),

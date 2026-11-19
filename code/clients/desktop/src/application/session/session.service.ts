@@ -1,4 +1,5 @@
 import type { DeviceServiceInterface } from '@library/domain';
+import { resolveGatewayUrl } from '@library/domain/gateway-url';
 import { SessionContextInterface, type VisitorSession } from '@library/session';
 
 import { parseVisitorSession } from './parse-visitor-session';
@@ -143,7 +144,7 @@ export class SessionService implements SessionContextInterface {
   }
 
   private async request(path: string, method: 'GET' | 'POST', body?: unknown, signal?: AbortSignal): Promise<unknown> {
-    const response = await fetch(new URL(`/v1/auth/${path}`, this.gatewayUrl), {
+    const response = await fetch(resolveGatewayUrl(`/v1/auth/${path}`, this.gatewayUrl), {
       method,
       credentials: 'include',
       cache: 'no-store',

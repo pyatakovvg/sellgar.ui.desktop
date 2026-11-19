@@ -20,11 +20,11 @@ createServer((request, response) => {
     'GET /v1/cart': cart,
     'GET /v1/products': { data: [], meta: { totalRows: 0 } },
   };
-  const payload = routes[`${request.method} ${request.url}`];
+  const payload = routes[`${request.method} ${request.url?.replace(/^\/api\/client/, '')}`];
 
   response.writeHead(payload ? 200 : 404, {
     'Content-Type': 'application/json',
-    ...(request.url === '/v1/auth/session' ? { 'Set-Cookie': 'smoke-session=fixture; HttpOnly; Path=/' } : {}),
+    ...(request.url === '/api/client/v1/auth/session' ? { 'Set-Cookie': 'smoke-session=fixture; HttpOnly; Path=/' } : {}),
   });
   response.end(JSON.stringify(payload ?? { message: 'Unknown fixture request' }));
 }).listen(8080, '0.0.0.0');

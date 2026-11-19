@@ -3,6 +3,8 @@ import { validateOrReject } from 'class-validator';
 
 import { Inject, Injectable, RequestExecutorInterface } from '@sellgar/app';
 
+import { resolveGatewayUrl } from '@library/domain/gateway-url';
+
 import { ConfigInterface } from '../../../../infrastructure/config/config.interface.ts';
 import { HttpClientInterface } from '../../../../infrastructure/http-client/http-client.interface.ts';
 import { StoreOfferEntity } from '../../domain/store-offer.entity.ts';
@@ -22,7 +24,7 @@ export class StoreGateway implements StoreGatewayInterface {
   async getAll(signal?: AbortSignal): Promise<StoreOfferResultEntity> {
     const result = await this.requestExecutor.run({ scope: 'store-offers:list' }, (request) =>
       this.httpClient.get(
-        new URL('/v1/products', this.config.getGatewayUrl()),
+        resolveGatewayUrl('/v1/products', this.config.getGatewayUrl()),
         signal ? AbortSignal.any([signal, request.signal]) : request.signal,
       ),
     );
@@ -36,7 +38,7 @@ export class StoreGateway implements StoreGatewayInterface {
   async findOfferByUuid(uuid: string, signal?: AbortSignal): Promise<StoreOfferDetailsEntity> {
     const result = await this.requestExecutor.run({ scope: `store-offer:${uuid}` }, (request) =>
       this.httpClient.get(
-        new URL(`/v1/offers/${encodeURIComponent(uuid)}`, this.config.getGatewayUrl()),
+        resolveGatewayUrl(`/v1/offers/${encodeURIComponent(uuid)}`, this.config.getGatewayUrl()),
         signal ? AbortSignal.any([signal, request.signal]) : request.signal,
       ),
     );

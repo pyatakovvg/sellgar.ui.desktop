@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { resolveGatewayUrl } from '@library/domain/gateway-url';
+
 const DEVICE_COOKIE = 'sellgar.deviceUuid';
 
 export async function proxy(request: NextRequest) {
@@ -9,7 +11,7 @@ export async function proxy(request: NextRequest) {
   let session: Response;
 
   try {
-    session = await fetch(new URL('/v1/auth/session', gatewayUrl), {
+    session = await fetch(resolveGatewayUrl('/v1/auth/session', gatewayUrl), {
       method: 'POST',
       cache: 'no-store',
       headers: {

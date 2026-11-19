@@ -3,6 +3,8 @@ import { isUUID, validateOrReject } from 'class-validator';
 
 import { Inject, Injectable, RequestExecutorInterface } from '@sellgar/app';
 
+import { resolveGatewayUrl } from '@library/domain/gateway-url';
+
 import { ConfigInterface } from '../../../../infrastructure/config/config.interface.ts';
 import { HttpClientInterface } from '../../../../infrastructure/http-client/http-client.interface.ts';
 import type { HttpRequestInput } from '../../../../infrastructure/http-client/http-request.input.ts';
@@ -30,7 +32,7 @@ export class CartGateway implements CartGatewayInterface {
 
     for (const item of cart.items) {
       item.imageUrl = item.imageUuid
-        ? new URL(`/v1/files/${item.imageUuid}`, this.config.getPublicGatewayUrl()).toString()
+        ? resolveGatewayUrl(`/v1/files/${item.imageUuid}`, this.config.getPublicGatewayUrl()).toString()
         : null;
     }
 
@@ -78,7 +80,7 @@ export class CartGateway implements CartGatewayInterface {
 
   private request(path: string, input: HttpRequestInput, scope: string): Promise<unknown> {
     return this.requests.run({ scope }, (request) =>
-      this.http.request(new URL(path, this.config.getGatewayUrl()), {
+      this.http.request(resolveGatewayUrl(path, this.config.getGatewayUrl()), {
         ...input,
         withSession: true,
         signal: input.signal ? AbortSignal.any([input.signal, request.signal]) : request.signal,

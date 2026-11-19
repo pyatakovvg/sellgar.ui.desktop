@@ -98,8 +98,8 @@ def main(image):
         )
         containers.append(gateway)
         for environment in ["a", "b", "unconfigured"]:
-            public_url = f"https://public-{environment}.smoke.invalid"
-            gateway_url = "" if environment == "unconfigured" else "http://gateway:8080"
+            public_url = f"https://public-{environment}.smoke.invalid/api/client"
+            gateway_url = "" if environment == "unconfigured" else "http://gateway:8080/api/client"
             with tempfile.TemporaryDirectory(prefix="storefront-env-") as directory:
                 Path(directory).chmod(0o755)
                 config = Path(directory) / ".env"
