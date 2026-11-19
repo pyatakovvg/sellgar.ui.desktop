@@ -8,6 +8,6 @@ configmaps:
     enabled: true
     filename: .env
     data: |
-      CLIENT_GATEWAY_URL=http://client-gateway
+      CLIENT_GATEWAY_URL=http://client-gateway:8080
       PUBLIC_CLIENT_GATEWAY_URL=http://dev.sellgar.io/api/client
       PUBLIC_SOCKET_GATEWAY_URL=http://dev.sellgar.io
