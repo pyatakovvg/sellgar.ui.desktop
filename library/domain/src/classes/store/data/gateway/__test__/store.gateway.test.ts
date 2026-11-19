@@ -54,7 +54,11 @@ const createGateway = () => {
 
   return {
     executor,
-    gateway: new StoreGateway(new Config('https://gateway.example.test'), new HttpClient(), executor),
+    gateway: new StoreGateway(
+      new Config('https://gateway.example.test', 'https://socket.example.test'),
+      new HttpClient({ getUniqueId: () => 'browser-device' }),
+      executor,
+    ),
   };
 };
 
@@ -71,6 +75,10 @@ test('catalog returns validated domain entities and preserves identity, metadata
   assert.equal(result.data[0].uuid, offerUuid);
   assert.equal(result.data[0].product.uuid, offer.productUuid);
   assert.equal(result.data[0].records[0].inventory.version, 2);
+  assert.deepEqual(
+    result.data[0].records.map((record) => record.order),
+    [0, 1],
+  );
   assert.equal(result.data[0].currentPrice?.value, '1500.00');
   assert.equal(result.meta.totalRows, 13);
   assert.deepEqual(executor.scopes, ['store-offers:list']);

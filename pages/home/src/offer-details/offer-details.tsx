@@ -3,106 +3,111 @@
 import Link from 'next/link';
 import React from 'react';
 
-import { Typography } from '@sellgar/kit';
+import { Badge, Card, LinkTypography, Typography } from '@sellgar/kit';
 
 import type { CategoryPathEntity, StoreOfferEntity } from '@library/domain';
 
-import { formatPrice, getInitials, getPreviewImage } from '../formatter/offer.formatter.ts';
+import { formatPrice } from '../formatter/offer.formatter.ts';
 import { Categories } from './categories';
-import s from './default.module.scss';
+import s from './default.module.css';
+import { Gallery } from './gallery';
 import { Properties } from './properties';
-import { Records } from './records';
 
 interface IProps {
   offer?: StoreOfferEntity | null;
   siblingOffers: StoreOfferEntity[];
   categories: CategoryPathEntity[];
   failedToLoad?: boolean;
+  purchase: React.ReactNode;
 }
 
 export const OfferDetailsComponent: React.FC<IProps> = (props) => {
   if (props.failedToLoad || !props.offer) {
     return (
       <div className={s.page}>
-        <Link className={s.backLink} href={'/'}>
-          Вернуться в каталог
-        </Link>
-        <section className={s.status}>
-          <Typography size="h6" weight="semi-bold">
-            <h1>{props.failedToLoad ? 'Не удалось загрузить предложение' : 'Предложение не найдено'}</h1>
-          </Typography>
-          <Typography size="body-s" weight="regular">
-            <p>
-              {props.failedToLoad
-                ? 'Попробуйте обновить страницу позже'
-                : 'На витрине нет такого активного предложения'}
-            </p>
-          </Typography>
-        </section>
+        <Categories paths={[]} name="Предложение недоступно" />
+        <Card>
+          <div className={s.status}>
+            <Typography size="h6" weight="semi-bold">
+              <h1>{props.failedToLoad ? 'Не удалось загрузить предложение' : 'Предложение не найдено'}</h1>
+            </Typography>
+            <Typography size="body-s" weight="regular">
+              <p>
+                {props.failedToLoad
+                  ? 'Попробуйте обновить страницу позже'
+                  : 'На витрине нет такого активного предложения'}
+              </p>
+            </Typography>
+          </div>
+        </Card>
       </div>
     );
   }
 
   const offer = props.offer;
-  const image = getPreviewImage(offer);
-  const otherOffers = props.siblingOffers.filter((item) => item.uuid !== offer.uuid);
+  const hasProperties = offer.product.properties.length > 0 || offer.variant.properties.length > 0;
 
   return (
     <div className={s.page}>
-      <Link className={s.backLink} href={'/'}>
-        Вернуться в каталог
-      </Link>
-      <Categories paths={props.categories} />
-      <section className={s.offerDetails}>
-        <div className={s.offerPreview}>
-          {image ? (
-            <img className={s.image} src={image.imageUrl} alt={image.fileName || offer.variant.name} />
-          ) : (
-            <span>{getInitials(offer.product.name)}</span>
-          )}
-        </div>
-        <div className={s.offerInfo}>
-          {offer.brand ? <span className={s.brand}>{offer.brand.name}</span> : null}
-          <Typography size="h4" weight="semi-bold">
-            <h1 className={s.title}>{offer.product.name}</h1>
-          </Typography>
-          <Typography size="body-s" weight="regular">
-            <p className={s.variant}>{offer.variant.name}</p>
-          </Typography>
-          {offer.product.description ? (
-            <Typography size="body-s" weight="regular">
-              <p className={s.description}>{offer.product.description}</p>
-            </Typography>
-          ) : null}
-          {offer.variant.description && offer.variant.description !== offer.product.description ? (
-            <Typography size="body-s" weight="regular">
-              <p className={s.description}>{offer.variant.description}</p>
-            </Typography>
-          ) : null}
-          <div className={s.price}>{formatPrice(offer)}</div>
-          <Records key={offer.uuid} records={offer.records} />
-          {offer.product.properties.length > 0 ? (
-            <Properties title={'О товаре'} fields={offer.product.properties} />
-          ) : null}
-          {offer.variant.properties.length > 0 ? (
-            <Properties title={'Об этом варианте'} fields={offer.variant.properties} />
-          ) : null}
-        </div>
-      </section>
-      {otherOffers.length > 0 ? (
-        <section className={s.variantsSection}>
-          <Typography size="h6" weight="semi-bold">
-            <h2>Другие варианты товара</h2>
-          </Typography>
-          <div className={s.variantLinks}>
-            {otherOffers.map((item) => (
-              <Link key={item.uuid} className={s.variantLink} href={`/offers/${item.uuid}`}>
-                <span className={s.variantName}>{item.variant.name}</span>
-                <span className={s.variantPrice}>{formatPrice(item)}</span>
-              </Link>
-            ))}
+      <header className={s.heading}>
+        <Categories paths={props.categories} name={offer.product.name} />
+        <Typography size="h5" weight="semi-bold">
+          <h1 className={s.title}>{offer.product.name}</h1>
+        </Typography>
+      </header>
+      <Card>
+        <div className={s.overview}>
+          <Gallery key={offer.uuid} images={offer.variant.images} name={offer.product.name} />
+          <div className={s.info}>
+            {offer.brand ? (
+              <Typography size="body-s" weight="medium">
+                <p className={s.brand}>{offer.brand.name}</p>
+              </Typography>
+            ) : null}
+            {props.siblingOffers.length > 1 ? (
+              <nav className={s.variants} aria-label="Варианты товара">
+                {props.siblingOffers.map((item) => (
+                  <LinkTypography key={item.uuid}>
+                    <Link href={`/offers/${item.uuid}`} aria-current={item.uuid === offer.uuid ? 'page' : undefined}>
+                      <Badge label={item.variant.name} color={item.uuid === offer.uuid ? 'blue' : 'gray'} size="md" />
+                    </Link>
+                  </LinkTypography>
+                ))}
+              </nav>
+            ) : null}
+            <div className={offer.records.length === 1 ? s.singlePurchase : s.purchase}>
+              <Typography size="h6" weight="semi-bold">
+                <p className={s.price}>{formatPrice(offer)}</p>
+              </Typography>
+              {props.purchase}
+            </div>
+            {offer.product.description || offer.variant.description ? (
+              <section className={s.description} aria-label="Описание товара">
+                <Typography size="body-s" weight="regular">
+                  {offer.product.description ? <p className={s.paragraph}>{offer.product.description}</p> : null}
+                  {offer.variant.description && offer.variant.description !== offer.product.description ? (
+                    <p className={s.paragraph}>{offer.variant.description}</p>
+                  ) : null}
+                </Typography>
+              </section>
+            ) : null}
           </div>
-        </section>
+        </div>
+      </Card>
+      {hasProperties ? (
+        <Card>
+          <section className={s.attributes} aria-label="Атрибуты товара">
+            <Typography size="h6" weight="semi-bold">
+              <h2 className={s.title}>Характеристики</h2>
+            </Typography>
+            {offer.product.properties.length > 0 ? (
+              <Properties title="Товар" fields={offer.product.properties} />
+            ) : null}
+            {offer.variant.properties.length > 0 ? (
+              <Properties title="Вариант" fields={offer.variant.properties} />
+            ) : null}
+          </section>
+        </Card>
       ) : null}
     </div>
   );

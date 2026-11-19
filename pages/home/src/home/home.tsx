@@ -4,10 +4,11 @@ import React from 'react';
 
 import { Badge, Typography } from '@sellgar/kit';
 
+import { ProductCard } from '@library/design';
 import type { StoreOfferEntity } from '@library/domain';
 
-import { Card } from './card';
-import s from './default.module.scss';
+import { formatPrice, getInitials, getPreviewImage } from '../formatter/offer.formatter.ts';
+import s from './default.module.css';
 
 interface IProps {
   products: StoreOfferEntity[];
@@ -39,9 +40,23 @@ export const HomeComponent: React.FC<IProps> = (props) => {
         </section>
       ) : (
         <section className={s.grid}>
-          {props.products.map((offer) => (
-            <Card key={offer.uuid} offer={offer} />
-          ))}
+          {props.products.map((offer) => {
+            const image = getPreviewImage(offer);
+            const href = `/offers/${offer.uuid}`;
+
+            return (
+              <ProductCard
+                key={offer.uuid}
+                href={href}
+                name={offer.product.name}
+                variantName={offer.variant.name}
+                brandName={offer.brand?.name}
+                imageUrl={image?.imageUrl}
+                imagePlaceholder={getInitials(offer.product.name)}
+                price={formatPrice(offer)}
+              />
+            );
+          })}
         </section>
       )}
     </div>

@@ -6,7 +6,9 @@ import React from 'react';
 import type { LayoutViewProps } from '@sellgar/app/next';
 import { Typography } from '@sellgar/kit';
 
-import s from './default.module.scss';
+import { CartControl } from '@widget/cart/control';
+
+import s from './default.module.css';
 
 export const LayoutView: React.FC<LayoutViewProps> = (props) => {
   return (
@@ -16,14 +18,27 @@ export const LayoutView: React.FC<LayoutViewProps> = (props) => {
           <span className={s.logo}>Sellgar</span>
         </Typography>
         <nav className={s.nav}>
-          <Link href="/">Каталог</Link>
-          <Link href="/">Новинки</Link>
-          <Link href="/">Контакты</Link>
+          <Typography size="caption-l" weight="regular">
+            <Link className={s.link} href="/">
+              Каталог
+            </Link>
+            <Link className={s.link} href="/">
+              Новинки
+            </Link>
+            <Link className={s.link} href="/">
+              Контакты
+            </Link>
+          </Typography>
         </nav>
+        <div className={s.cart}>
+          <CartControl />
+        </div>
       </header>
       <section className={s.content}>{props.children}</section>
       <footer className={s.footer}>
-        <span>Sellgar marketplace</span>
+        <Typography size="caption-l" weight="regular">
+          <span>Sellgar marketplace</span>
+        </Typography>
       </footer>
     </main>
   );

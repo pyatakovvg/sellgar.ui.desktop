@@ -23,6 +23,7 @@ export const createStoreOffer = (): StoreOfferEntity =>
         uuid: '00000000-0000-4000-8000-000000000005',
         offerUuid,
         article: 'BLUE-S',
+        order: 0,
         version: 1,
         clarifications: [
           { position: 1, value: 'Упаковка' },
@@ -44,6 +45,7 @@ export const createStoreOffer = (): StoreOfferEntity =>
         uuid: '00000000-0000-4000-8000-000000000007',
         offerUuid,
         article: 'BLUE-L',
+        order: 1,
         version: 3,
         clarifications: [],
         inventory: {

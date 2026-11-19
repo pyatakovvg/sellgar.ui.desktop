@@ -5,3 +5,4 @@ export * from './property/index.ts';
 export * from './product/index.ts';
 export * from './variant/index.ts';
 export * from './store/index.ts';
+export * from './cart/index.ts';

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { Image, Typography } from '@sellgar/kit';
+
 import type { ProductFieldEntity } from '@library/domain';
 
-import s from './default.module.scss';
+import s from './default.module.css';
 
 interface IProps {
   extra: ProductFieldEntity['property']['options'][number]['extras'][number];
@@ -17,8 +19,14 @@ export const ExtraFactory: React.FC<IProps> = (props) => {
         </svg>
       ) : null;
     case 'IMAGE':
-      return props.extra.imageUrl ? <img className={s.image} src={props.extra.imageUrl} alt={''} /> : null;
+      return props.extra.imageUrl ? (
+        <Image src={props.extra.imageUrl} width={24} height={24} fit="contain" aria-hidden={true} />
+      ) : null;
     case 'TEXT':
-      return props.extra.valueText ? <span className={s.text}>{props.extra.valueText}</span> : null;
+      return props.extra.valueText ? (
+        <Typography size="caption-m" weight="regular">
+          <span className={s.text}>{props.extra.valueText}</span>
+        </Typography>
+      ) : null;
   }
 };

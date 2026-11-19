@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsDefined, IsInt, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { IsArray, IsDateString, IsDefined, IsInt, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
 
 import { Entity } from '@sellgar/app';
 
@@ -19,6 +19,11 @@ export class StoreAccountingRecordEntity {
   @Expose()
   @IsString()
   article: string;
+
+  @Expose()
+  @IsInt()
+  @Min(0)
+  order: number;
 
   @Expose()
   @IsInt()

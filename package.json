@@ -3,14 +3,14 @@
   "license": "UNLICENSED",
   "scripts": {
     "update": "yarn upgrade-interactive",
-    "format": "yarn lint --fix && prettier --write \"{clients,layouts,library/domain,modules,pages}/**/*.{ts,tsx,json}\" eslint.config.js package.json",
-    "lint": "eslint clients layouts library/domain modules pages",
+    "format": "yarn lint --fix && prettier --write \"{clients,layouts,library/design,library/domain,modules,pages,widgets}/**/*.{ts,tsx,json}\" eslint.config.js package.json",
+    "lint": "eslint clients layouts library/design library/domain modules pages widgets",
     "dev:desktop_ui": "yarn workspace @client/desktop dev",
     "dev:storybook": "yarn workspace @client/storybook start",
     "start:storybook": "yarn workspace @client/storybook start",
     "build:desktop_ui": "yarn workspace @client/desktop build",
     "build:storybook": "yarn workspaces foreach -tR --from '@client/storybook' -R run build",
-    "test:storefront": "node --import ./library/sellgar.app.ui/next/module/runtime/module-session/register-test-loader.mjs --test 'library/domain/**/*.test.ts' 'modules/**/*.test.ts' 'pages/home/**/*.test.ts'",
+    "test:storefront": "node --conditions=browser --import ./library/sellgar.app.ui/next/module/runtime/module-session/register-test-loader.mjs --test 'library/domain/**/*.test.ts' 'modules/**/*.test.ts' 'widgets/**/*.test.ts' 'pages/home/**/*.test.ts' 'clients/desktop/src/application/**/*.test.ts'",
     "typecheck": "yarn workspace @client/desktop typecheck"
   },
   "devDependencies": {

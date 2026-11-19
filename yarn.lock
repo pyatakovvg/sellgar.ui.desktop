@@ -307,6 +307,8 @@ __metadata:
   dependencies:
     "@layout/root": "npm:0.0.1"
     "@library/domain": "npm:0.0.1"
+    "@library/session": "workspace:*"
+    "@library/socket-io": "workspace:*"
     "@module/catalog": "npm:0.0.1"
     "@module/offer-details": "npm:0.0.1"
     "@sellgar/app": "npm:0.0.1"
@@ -314,6 +316,7 @@ __metadata:
     "@types/node": "npm:26.6.6"
     "@types/react": "npm:19.3.0"
     "@types/react-dom": "npm:19.3.0"
+    "@widget/cart": "workspace:*"
     class-transformer: "npm:0.5.1"
     class-validator: "npm:0.15.1"
     next: "npm:16.4.5"
@@ -921,6 +924,7 @@ __metadata:
     "@sellgar/app": "workspace:*"
     "@sellgar/kit": "workspace:*"
     "@types/react": "npm:19.3.0"
+    "@widget/cart": "workspace:*"
     classnames: "npm:2.5.1"
     next: "npm:16.4.5"
     react: "npm:19.3.1"
@@ -929,6 +933,18 @@ __metadata:
     class-validator: ^0.15.1
     react-dom: ^19
     reflect-metadata: ^0.2.2
+  languageName: unknown
+  linkType: soft
+
+"@library/design@workspace:*, @library/design@workspace:library/design":
+  version: 0.0.0-use.local
+  resolution: "@library/design@workspace:library/design"
+  dependencies:
+    "@sellgar/kit": "workspace:*"
+    "@types/react": "npm:19.3.0"
+    next: "npm:16.4.5"
+    react: "npm:19.3.1"
+    react-dom: "npm:19.3.1"
   languageName: unknown
   linkType: soft
 
@@ -942,6 +958,22 @@ __metadata:
     reflect-metadata: "npm:0.2.2"
   peerDependencies:
     react: 19.3.1
+  languageName: unknown
+  linkType: soft
+
+"@library/session@workspace:*, @library/session@workspace:library/session":
+  version: 0.0.0-use.local
+  resolution: "@library/session@workspace:library/session"
+  languageName: unknown
+  linkType: soft
+
+"@library/socket-io@workspace:*, @library/socket-io@workspace:library/socket-io":
+  version: 0.0.0-use.local
+  resolution: "@library/socket-io@workspace:library/socket-io"
+  dependencies:
+    "@sellgar/app": "npm:0.0.1"
+    class-validator: "npm:0.15.1"
+    socket.io-client: "npm:4.8.4"
   languageName: unknown
   linkType: soft
 
@@ -969,7 +1001,9 @@ __metadata:
     "@library/domain": "workspace:*"
     "@page/home": "workspace:*"
     "@sellgar/app": "workspace:*"
+    "@widget/cart": "workspace:*"
     class-transformer: "npm:0.5.1"
+    class-validator: "npm:0.15.1"
     react: "npm:19.3.1"
   peerDependencies:
     class-transformer: ^0.5.1
@@ -1075,6 +1109,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@page/home@workspace:pages/home"
   dependencies:
+    "@library/design": "workspace:*"
     "@library/domain": "workspace:*"
     "@sellgar/kit": "workspace:*"
     "@types/react": "npm:19.3.0"
@@ -1501,6 +1536,13 @@ __metadata:
       optional: true
   languageName: unknown
   linkType: soft
+
+"@socket.io/component-emitter@npm:~3.1.0":
+  version: 3.1.2
+  resolution: "@socket.io/component-emitter@npm:3.1.2"
+  checksum: 10/89888f00699eb34e3070624eb7b8161fa29f064aeb1389a48f02195d55dd7c52a504e52160016859f6d6dffddd54324623cdd47fd34b3d46f9ed96c18c456edc
+  languageName: node
+  linkType: hard
 
 "@storybook/builder-vite@npm:10.6.5":
   version: 10.6.5
@@ -1932,6 +1974,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@widget/cart@workspace:*, @widget/cart@workspace:widgets/cart":
+  version: 0.0.0-use.local
+  resolution: "@widget/cart@workspace:widgets/cart"
+  dependencies:
+    "@library/domain": "workspace:*"
+    "@library/session": "workspace:*"
+    "@library/socket-io": "workspace:*"
+    "@sellgar/app": "workspace:*"
+    "@sellgar/kit": "workspace:*"
+    class-transformer: "npm:0.5.1"
+    class-validator: "npm:0.15.1"
+    next: "npm:16.4.5"
+    react: "npm:19.3.1"
+    reflect-metadata: "npm:0.2.2"
+  languageName: unknown
+  linkType: soft
+
 "abbrev@npm:^3.0.0":
   version: 3.0.0
   resolution: "abbrev@npm:3.0.0"
@@ -2344,7 +2403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.1.0, debug@npm:^4.4.0, debug@npm:^4.4.3":
+"debug@npm:^4.1.0, debug@npm:^4.4.0, debug@npm:^4.4.3, debug@npm:~4.4.1":
   version: 4.4.3
   resolution: "debug@npm:4.4.3"
   dependencies:
@@ -2447,6 +2506,26 @@ __metadata:
   dependencies:
     iconv-lite: "npm:^0.6.2"
   checksum: 10/bb98632f8ffa823996e508ce6a58ffcf5856330fde839ae42c9e1f436cc3b5cc651d4aeae72222916545428e54fd0f6aa8862fd8d25bdbcc4589f1e3f3715e7f
+  languageName: node
+  linkType: hard
+
+"engine.io-client@npm:~6.6.1":
+  version: 6.6.8
+  resolution: "engine.io-client@npm:6.6.8"
+  dependencies:
+    "@socket.io/component-emitter": "npm:~3.1.0"
+    debug: "npm:~4.4.1"
+    engine.io-parser: "npm:~5.2.1"
+    ws: "npm:~8.21.0"
+    xmlhttprequest-ssl: "npm:~2.1.1"
+  checksum: 10/a921e552d606272d69761b2ec12a11132d7784e7876bb1820dad93c7b12223f203ea0e794a6fff6e4ca211112d48b225903ffe67c4fea7274343417a3fdb7a4d
+  languageName: node
+  linkType: hard
+
+"engine.io-parser@npm:~5.2.1":
+  version: 5.2.3
+  resolution: "engine.io-parser@npm:5.2.3"
+  checksum: 10/eb0023fff5766e7ae9d59e52d92df53fea06d472cfd7b52e5d2c36b4c1dbf78cab5fde1052bcb3d4bb85bdb5aee10ae85d8a1c6c04676dac0c6cdf16bcba6380
   languageName: node
   linkType: hard
 
@@ -4472,6 +4551,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"socket.io-client@npm:4.8.4":
+  version: 4.8.4
+  resolution: "socket.io-client@npm:4.8.4"
+  dependencies:
+    "@socket.io/component-emitter": "npm:~3.1.0"
+    debug: "npm:~4.4.1"
+    engine.io-client: "npm:~6.6.1"
+    socket.io-parser: "npm:~4.2.4"
+  checksum: 10/9b39697b00db989b23caf2f1c0cd15d71c734a50281febd3de0eaf448b89a16758d2ba89b57be05ba6fc435f4127e64908cd59d3e878cb36a97954aa376d7042
+  languageName: node
+  linkType: hard
+
+"socket.io-parser@npm:~4.2.4":
+  version: 4.2.7
+  resolution: "socket.io-parser@npm:4.2.7"
+  dependencies:
+    "@socket.io/component-emitter": "npm:~3.1.0"
+    debug: "npm:~4.4.1"
+  checksum: 10/da1920b9dae989e2c491aa9c248ced7d03d8b1056acf3144c0992878fdc8b91fb50638df38c0e387317f8bc748718ea2ae648d83ff837a5a0ede20ce277b2af9
+  languageName: node
+  linkType: hard
+
 "socks-proxy-agent@npm:^8.0.3":
   version: 8.0.5
   resolution: "socks-proxy-agent@npm:8.0.5"
@@ -5044,6 +5145,28 @@ __metadata:
     string-width: "npm:^5.0.1"
     strip-ansi: "npm:^7.0.1"
   checksum: 10/7b1e4b35e9bb2312d2ee9ee7dc95b8cb5f8b4b5a89f7dde5543fe66c1e3715663094defa50d75454ac900bd210f702d575f15f3f17fa9ec0291806d2578d1ddf
+  languageName: node
+  linkType: hard
+
+"ws@npm:~8.21.0":
+  version: 8.21.3
+  resolution: "ws@npm:8.21.3"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 10/8856922c26fd2d106931c16310d9a0bc2d6d37ed8771352bfa0d2a36df0ab5cb1f6528c6db8213f3333cf4ce93925e56f13604df0454cb0d4289fef922bebcdd
+  languageName: node
+  linkType: hard
+
+"xmlhttprequest-ssl@npm:~2.1.1":
+  version: 2.1.2
+  resolution: "xmlhttprequest-ssl@npm:2.1.2"
+  checksum: 10/708a177fe41c6c8cd4ec7c04d965b4c01801d87f44383ec639be58bdc14418142969841659e0850db44feee8bec0a3d3e7d33fed22519415f3d0daab04d3f160
   languageName: node
   linkType: hard
 
