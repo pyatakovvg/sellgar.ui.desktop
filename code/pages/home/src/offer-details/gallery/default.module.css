@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  min-height: var(--numbers-384);
+  height: var(--numbers-384);
   overflow: hidden;
 }
 

@@ -1,3 +1,10 @@
+.image {
+  display: inline-block;
+  width: var(--numbers-24);
+  height: var(--numbers-24);
+  flex-shrink: 0;
+}
+
 .color {
   width: var(--numbers-24);
   height: var(--numbers-24);

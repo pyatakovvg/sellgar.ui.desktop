@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Image, Typography } from '@sellgar/kit';
+import { Typography } from '@sellgar/kit';
 
+import { Image } from '@library/design';
 import type { ProductFieldEntity } from '@library/domain';
 
 import s from './default.module.css';
@@ -20,7 +21,9 @@ export const ExtraFactory: React.FC<IProps> = (props) => {
       ) : null;
     case 'IMAGE':
       return props.extra.imageUrl ? (
-        <Image src={props.extra.imageUrl} width={24} height={24} fit="contain" aria-hidden={true} />
+        <span className={s.image}>
+          <Image src={props.extra.imageUrl} sizes="24px" alt="" aria-hidden={true} />
+        </span>
       ) : null;
     case 'TEXT':
       return props.extra.valueText ? (

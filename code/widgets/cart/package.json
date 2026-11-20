@@ -8,6 +8,7 @@
     "./control": "./src/view/control/index.ts"
   },
   "dependencies": {
+    "@library/design": "workspace:*",
     "@library/domain": "workspace:*",
     "@library/session": "workspace:*",
     "@library/socket-io": "workspace:*",

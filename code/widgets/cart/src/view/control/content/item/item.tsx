@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
 
-import { useApplicationState, useReadyApplication } from '@sellgar/app/next';
-import { Image, QuantityStepper } from '@sellgar/kit';
+import { Link, useApplicationState, useReadyApplication } from '@sellgar/app/next';
+import { QuantityStepper } from '@sellgar/kit';
 import { ImageLineIcon } from '@sellgar/kit/icons';
 
+import { Image } from '@library/design';
 import type { CartItemEntity } from '@library/domain';
 
 import { CartApplicationState } from '../../../../cart.state';
@@ -44,7 +44,7 @@ export const Item: React.FC<IProps> = (props) => {
   return (
     <li className={s.wrapper}>
       <div className={s.preview} aria-hidden="true">
-        {item.imageUrl ? <Image src={item.imageUrl} width={48} height={48} /> : <ImageLineIcon />}
+        {item.imageUrl ? <Image src={item.imageUrl} sizes="48px" alt="" /> : <ImageLineIcon />}
       </div>
       <div className={s.details}>
         {item.canOpenProduct && item.offerUuid ? (

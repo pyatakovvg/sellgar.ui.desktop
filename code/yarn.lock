@@ -940,8 +940,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@library/design@workspace:library/design"
   dependencies:
+    "@sellgar/app": "workspace:*"
     "@sellgar/kit": "workspace:*"
     "@types/react": "npm:19.3.0"
+    classnames: "npm:2.5.1"
     next: "npm:16.4.5"
     react: "npm:19.3.1"
     react-dom: "npm:19.3.1"
@@ -1978,6 +1980,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@widget/cart@workspace:widgets/cart"
   dependencies:
+    "@library/design": "workspace:*"
     "@library/domain": "workspace:*"
     "@library/session": "workspace:*"
     "@library/socket-io": "workspace:*"

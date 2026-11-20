@@ -32,6 +32,12 @@
   }
 }
 
+.image {
+  width: var(--numbers-192);
+  height: var(--numbers-192);
+  max-width: 100%;
+}
+
 .body {
   display: flex;
   flex: 1;

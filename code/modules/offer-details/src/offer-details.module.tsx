@@ -9,7 +9,6 @@ import { ModuleView } from './view/module.view';
 @UseBindings(OfferDetailsBindings)
 @Module({
   view: ModuleView,
-  fallback: <p role="status">Загрузка…</p>,
   exception: <p role="alert">Не удалось открыть страницу</p>,
 })
 export class OfferDetailsModule {}

@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  min-height: var(--numbers-256);
+  align-items: center;
+  justify-content: center;
+  gap: var(--numbers-12);
+  padding: var(--numbers-32);
+  color: var(--text-base-primary);
+}

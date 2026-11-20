@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Button, Image, Typography } from '@sellgar/kit';
+import { Button, Typography } from '@sellgar/kit';
 import { ArrowLeftSLineIcon, ArrowRightSLineIcon } from '@sellgar/kit/icons';
 
+import { Image } from '@library/design';
 import type { StoreOfferEntity } from '@library/domain';
 
 import { getInitials } from '../../formatter/offer.formatter.ts';
@@ -22,7 +23,13 @@ export const Gallery: React.FC<IProps> = (props) => {
     <section className={s.wrapper} aria-label="Галерея товара">
       <div className={s.preview} role="img" aria-label={props.name}>
         {image ? (
-          <Image src={image.imageUrl} height={384} fit="contain" aria-hidden={true} />
+          <Image
+            src={image.imageUrl}
+            sizes="(max-width: 800px) 100vw, 50vw"
+            loading="eager"
+            alt=""
+            aria-hidden={true}
+          />
         ) : (
           <Typography size="h4" weight="medium">
             <span className={s.placeholder}>{getInitials(props.name)}</span>

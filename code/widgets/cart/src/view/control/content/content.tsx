@@ -1,9 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
 
-import { useApplicationState } from '@sellgar/app/next';
+import { Link, useApplicationState } from '@sellgar/app/next';
 import { Button, Scrollbar } from '@sellgar/kit';
 import { CloseLineIcon } from '@sellgar/kit/icons';
 

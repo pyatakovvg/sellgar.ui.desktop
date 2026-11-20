@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
 
+import { Link } from '@sellgar/app/next';
 import { Badge, Card, LinkTypography, Typography } from '@sellgar/kit';
 
 import type { CategoryPathEntity, StoreOfferEntity } from '@library/domain';

@@ -10,6 +10,8 @@
 - Runtime — nested submodule `library/sellgar.app.ui`, UI kit — `library/sellgar.kit.ui`.
 - `clients/desktop/src/application` владеет bootstrap и URL/config bindings; `withApp()` подключает Next-адаптер.
 - Маршруты Next вызывают `withModule()` для `modules/catalog` и `modules/offer-details`; `layouts/root` подключён через `withLayout()`.
+- Общий fallback задаётся через `app.components({ fallback: React.createElement(PageLoader) })`. Серверный `withModule()` ожидает данные и возвращает готовую страницу без дополнительной Suspense-границы; `app/loading.tsx` не используется. Индикатор относится только к браузерному NavigationActivity: `Link` из @sellgar/app/next использует публичный onNavigate next/link, Back/Forward отслеживаются через popstate, ModuleHost завершает ожидание при активации страницы. Layout сохраняется, старый модуль скрывается без размонтирования. Все ссылки витрины используют Link адаптера; прямой next/link и программные next/navigation не передают этот UI-сигнал. HTTP-заголовки и таймеры не используются.
+- Корневой layout владеет Scrollbar из кита на высоту viewport. Документ не прокручивается; внутренние списки, включая мини-корзину, используют свои Scrollbar по необходимости.
 - `library/domain` следует структуре domain админки: предметные срезы store, cart, product, variant, property, brand, currency, meta; публичные Service/Entity, внутренние Gateway/Mapper и инфраструктура Config/HttpClient. Подключение — только через `DomainBinding`.
 - Контроллеры внедряют `StoreServiceInterface`; gateway валидирует внешние ответы через class-transformer/class-validator. Состояния UI и сериализация snapshot принадлежат контроллерам модулей. Запросы выполняются через RequestExecutor и используют `cache: 'no-store'` и AbortSignal loader.
 - View читает данные через `useLoaderData()`; начальная гидратация воспроизводит серверный snapshot.
@@ -36,6 +38,7 @@
 - SessionContextInterface связывает host-owned SessionService и Hub, не раскрывая credentials или ownerUuid. Смена sessionUuid отменяет старые чтения/записи, очищает Cart и пересоздает socket leases. Framework освобождает провайдеры и subscriptions при остановке приложения.
 - Персонализации и обратная связь добавления находятся в OfferPurchase; OfferDetailsComponent получает блок покупки через slot. Заказ и резервирование на фронте не реализованы.
 - Kit подключать через публичные entrypoints `@sellgar/kit`, `@sellgar/kit/theme.css` и экспорты шрифтов.
+- Изображения витрины используют Image из @library/design: next/image с оптимизацией, стабильной областью, лоадером и состоянием ошибки из кита. Разрешённые источники optimizer заданы в clients/desktop/next.config.ts; изображения публичные и не требуют cookie.
 - Проверки: `yarn typecheck`, `yarn lint`, `yarn test:storefront`, `yarn build:desktop_ui`.
 - Framework и kit коммитить в собственных repositories до обновления gitlinks desktop; затем обновлять workspace pointer.
 - Перед изменением Next.js читай `clients/desktop/AGENTS.md` и bundled docs Next.

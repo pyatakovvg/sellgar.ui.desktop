@@ -1,8 +1,9 @@
-import Link from 'next/link';
 import React from 'react';
 
-import { Badge, Image, Typography } from '@sellgar/kit';
+import { Link } from '@sellgar/app/next';
+import { Badge, Typography } from '@sellgar/kit';
 
+import { Image } from '../image';
 import s from './default.module.css';
 
 interface IProps {
@@ -22,7 +23,9 @@ export const ProductCard: React.FC<IProps> = (props) => {
     <article className={s.wrapper}>
       <Link className={s.preview} href={props.href} aria-label={linkLabel}>
         {props.imageUrl ? (
-          <Image src={props.imageUrl} width={192} height={192} fit="contain" aria-hidden={true} />
+          <div className={s.image}>
+            <Image src={props.imageUrl} sizes="192px" alt="" aria-hidden={true} />
+          </div>
         ) : (
           <Typography size="body-l" weight="medium">
             <span aria-hidden={true}>{props.imagePlaceholder}</span>
