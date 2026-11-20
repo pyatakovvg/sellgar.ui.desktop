@@ -59,14 +59,12 @@ URL изображений формируются через публичный 
 над значениями файла. При изменении ConfigMap checksum
 общего chart запускает rollout; существующий Node процесс .env не перечитывает.
 
-Dev values задают публичный origin `http://dev.sellgar.io`. Серверный
-`CLIENT_GATEWAY_URL` пока пуст: backend развёртывается отдельным этапом.
-До его подключения `/` и `/offers/*` возвращают HTTP 503 без изменения cookie;
-`/healthz` проверяет сам Next.js сервер и остаётся доступным. При подключении
-backend нужно заполнить серверный URL и настроить ingress его существующих
-путей `/v1` и socket gateway `/socket.io`. TLS настраивается отдельным этапом.
-Ingress витрины предназначен для `/` на `dev.sellgar.io`; более длинный `/admin`
-продолжает обслуживать админку. Prod ingress не включён до настройки адресов.
+Dev values задают публичный origin `https://dev.sellgar.ru`. Серверный
+`CLIENT_GATEWAY_URL` обращается к `http://client-gateway:8080` внутри кластера;
+браузер использует `/api/client` и `/socket.io` на публичном HTTPS origin.
+Ingress витрины обслуживает `/`; админка размещается на отдельном
+`https://admin.dev.sellgar.ru/`. TLS Secret `sellgar-dev-tls` содержит сертификат
+обоих имён. Prod ingress включается после настройки production-среды.
 
 ## CI и выпуск
 

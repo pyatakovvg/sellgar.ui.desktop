@@ -1,7 +1,8 @@
 replicas: 1
 
 ingress:
-  host: dev.sellgar.io
+  host: dev.sellgar.ru
+  tlsSecretName: sellgar-dev-tls
 
 configmaps:
   - nameOverride: storefront-env
@@ -9,5 +10,5 @@ configmaps:
     filename: .env
     data: |
       CLIENT_GATEWAY_URL=http://client-gateway:8080
-      PUBLIC_CLIENT_GATEWAY_URL=http://dev.sellgar.io/api/client
-      PUBLIC_SOCKET_GATEWAY_URL=http://dev.sellgar.io
+      PUBLIC_CLIENT_GATEWAY_URL=https://dev.sellgar.ru/api/client
+      PUBLIC_SOCKET_GATEWAY_URL=https://dev.sellgar.ru
