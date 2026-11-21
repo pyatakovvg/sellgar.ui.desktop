@@ -18,17 +18,18 @@ test('не теряет false и нулевые числовые значени�
   assert.equal(formatPropertyValue('BOOLEAN', { ...empty, valueBoolean: false }), 'Нет');
   assert.equal(formatPropertyValue('BOOLEAN', { ...empty, valueBoolean: true }), 'Да');
   assert.equal(formatPropertyValue('INTEGER', { ...empty, valueInteger: '0' }), '0');
-  assert.equal(formatPropertyValue('DECIMAL', { ...empty, valueDecimal: '0.00' }), '0');
+  assert.equal(formatPropertyValue('DECIMAL', { ...empty, valueDecimal: '0' }), '0');
 });
 
-test('убирает конечные нули дробной части без округления и потери точности', () => {
+test('отображает дробное значение из сервиса без преобразования', () => {
   const values = [
-    ['6.100000000000', '6.1'],
-    ['48.000000000000', '48'],
-    ['71.600000000000', '71.6'],
-    ['1000.000000000000', '1000'],
+    ['6.1', '6.1'],
+    ['48', '48'],
+    ['71.6', '71.6'],
+    ['1000', '1000'],
+    ['6.100', '6.100'],
     ['0.000000000001', '0.000000000001'],
-    ['-12.340000000000', '-12.34'],
+    ['-12.34', '-12.34'],
     ['12345678901234567890123456.123456789012', '12345678901234567890123456.123456789012'],
   ];
 
