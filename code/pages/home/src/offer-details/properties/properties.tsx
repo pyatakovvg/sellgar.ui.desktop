@@ -15,7 +15,7 @@ interface IProps {
 export const Properties: React.FC<IProps> = (props) => {
   return (
     <section className={s.wrapper}>
-      <Typography size="body-s" weight="medium">
+      <Typography size="caption-l" weight="medium">
         <h3 className={s.title}>{props.title}</h3>
       </Typography>
       <dl className={s.fields}>

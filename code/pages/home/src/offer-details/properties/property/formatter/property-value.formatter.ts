@@ -9,8 +9,14 @@ export const formatPropertyValue = (
       return value.valueText ?? '';
     case 'INTEGER':
       return value.valueInteger ?? '';
-    case 'DECIMAL':
-      return value.valueDecimal ?? '';
+    case 'DECIMAL': {
+      if (value.valueDecimal === null) return '';
+
+      const [integer, fraction = ''] = value.valueDecimal.split('.');
+      const significantFraction = fraction.replace(/0+$/, '');
+
+      return significantFraction ? `${integer}.${significantFraction}` : integer;
+    }
     case 'BOOLEAN':
       return value.valueBoolean === null ? '' : value.valueBoolean ? 'Да' : 'Нет';
     case 'DATE': {

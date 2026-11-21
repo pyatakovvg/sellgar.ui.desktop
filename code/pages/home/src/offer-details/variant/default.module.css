@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--numbers-72);
+  min-height: var(--numbers-72);
+  padding: var(--numbers-8);
+  overflow: hidden;
+  border: var(--numbers-1) solid var(--border-base-neutral-subtle);
+  border-radius: var(--measurements-radius-md);
+  background: var(--background-surface-default);
+  color: var(--text-base-primary);
+  text-decoration: none;
+  transition: border-color var(--measurements-transition) ease-out;
+}
+
+.wrapper:hover,
+.wrapper[aria-current='page'] {
+  border-color: var(--border-select-primary);
+}
+
+.wrapper:focus-visible {
+  outline: var(--numbers-2) solid var(--border-action-focus-light);
+  outline-offset: var(--numbers-2);
+}
+
+.image {
+  display: block;
+  width: var(--numbers-56);
+  height: var(--numbers-56);
+}
+
+.name {
+  max-width: var(--numbers-120);
+  overflow-wrap: anywhere;
+  text-align: center;
+}

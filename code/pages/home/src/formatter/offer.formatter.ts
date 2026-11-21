@@ -2,14 +2,22 @@ import type { StoreAccountingRecordEntity } from '@library/domain';
 import type { StoreOfferEntity } from '@library/domain';
 
 export const formatPrice = (offer: StoreOfferEntity): string => {
-  if (!offer.currentPrice) return 'Цена уточняется';
+  const range = offer.priceRange;
 
-  const price = offer.currentPrice;
-  const value = Number(price.value);
-  const formatted = Number.isFinite(value) ? value.toLocaleString('ru-RU') : price.value;
+  if (!range) return 'Цена уточняется';
 
-  return `${formatted} ${price.currency?.value ?? price.currencyCode}`;
+  const amounts = range.min === range.max ? [range.min] : [range.min, range.max];
+
+  return amounts.map((value) => formatMoney(value, range.currency?.value ?? range.currencyCode)).join(' ... ');
 };
+
+export const formatRecordPrice = (record: StoreAccountingRecordEntity): string => {
+  const price = record.currentPrice;
+
+  return price ? formatMoney(price.value, price.currency?.value ?? price.currencyCode) : 'Цена уточняется';
+};
+
+const formatMoney = (value: string, currency: string): string => `${Number(value).toLocaleString('ru-RU')} ${currency}`;
 
 export const getPreviewImage = (offer: StoreOfferEntity) => offer.variant.images.find((image) => image.imageUrl);
 

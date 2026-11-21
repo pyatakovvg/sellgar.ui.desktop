@@ -1,13 +1,37 @@
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsDefined, IsInt, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsDefined,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUUID,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 
 import { Entity } from '@sellgar/app';
 
+import { StorePriceHistoryEntity } from './store-price-history.entity.ts';
 import { StoreRecordClarificationEntity } from './store-record-clarification.entity.ts';
 import { StoreRecordInventoryEntity } from './store-record-inventory.entity.ts';
 
 @Entity({ identity: 'uuid' })
 export class StoreAccountingRecordEntity {
+  @Expose()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => StorePriceHistoryEntity)
+  currentPrice: StorePriceHistoryEntity | null;
+
+  @Expose()
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => StorePriceHistoryEntity)
+  prices?: StorePriceHistoryEntity[];
+
   @Expose()
   @IsUUID()
   uuid: string;

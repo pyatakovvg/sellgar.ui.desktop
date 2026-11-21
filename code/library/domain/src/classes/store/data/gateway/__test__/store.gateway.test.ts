@@ -79,7 +79,7 @@ test('catalog returns validated domain entities and preserves identity, metadata
     result.data[0].records.map((record) => record.order),
     [0, 1],
   );
-  assert.equal(result.data[0].currentPrice?.value, '1500.00');
+  assert.equal(result.data[0].records[0].currentPrice?.value, '1500.00');
   assert.equal(result.meta.totalRows, 13);
   assert.deepEqual(executor.scopes, ['store-offers:list']);
   assert.equal('failedToLoad' in result, false);

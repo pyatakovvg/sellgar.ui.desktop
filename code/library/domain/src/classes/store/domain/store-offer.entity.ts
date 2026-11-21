@@ -7,7 +7,7 @@ import { BrandEntity } from '../../brand/index.ts';
 import { ProductSummaryEntity } from '../../product/index.ts';
 import { VariantEntity } from '../../variant/index.ts';
 import { StoreAccountingRecordEntity } from './store-accounting-record.entity.ts';
-import { StorePriceHistoryEntity } from './store-price-history.entity.ts';
+import { StorePriceRangeEntity } from './store-price-range.entity.ts';
 
 @Entity({ identity: 'uuid' })
 export class StoreOfferEntity {
@@ -56,8 +56,8 @@ export class StoreOfferEntity {
   @ValidateIf((_object, value) => value !== null)
   @IsDefined()
   @ValidateNested()
-  @Type(() => StorePriceHistoryEntity)
-  currentPrice: StorePriceHistoryEntity | null;
+  @Type(() => StorePriceRangeEntity)
+  priceRange: StorePriceRangeEntity | null;
 
   @Expose()
   @IsDateString()

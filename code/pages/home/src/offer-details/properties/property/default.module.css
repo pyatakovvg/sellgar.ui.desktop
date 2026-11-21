@@ -1,22 +1,42 @@
 .wrapper {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  display: flex;
+  align-items: baseline;
   gap: var(--numbers-12);
+  margin-bottom: var(--numbers-12);
+  break-inside: avoid;
 }
 .label {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: var(--numbers-8);
+  min-width: 0;
   color: var(--text-base-secondary);
+}
+.label::after {
+  content: '';
+  flex: 1;
+  min-width: var(--numbers-12);
+  border-bottom: var(--numbers-1) dotted var(--border-base-neutral-subtle);
+}
+.name {
+  min-width: 0;
   overflow-wrap: anywhere;
 }
 .values {
   display: flex;
+  flex: 0 1 auto;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--numbers-8);
   margin: 0;
   min-width: 0;
   overflow-wrap: anywhere;
+  text-align: right;
 }
 .option {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--numbers-8);
 }

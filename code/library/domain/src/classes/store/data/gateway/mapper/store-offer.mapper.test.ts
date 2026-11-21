@@ -25,7 +25,7 @@ test('сохраняет отдельные записи, их артикулы,
       ['00000000-0000-4000-8000-000000000007', 'BLUE-L', 0],
     ],
   );
-  assert.equal(result.currentPrice?.value, '1500.00');
+  assert.equal(result.records[0].currentPrice?.value, '1500.00');
   assert.equal('article' in result, false);
   assert.equal('inventory' in result, false);
 });

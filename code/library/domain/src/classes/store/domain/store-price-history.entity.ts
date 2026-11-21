@@ -9,6 +9,10 @@ export class StorePriceHistoryEntity {
   uuid: string;
 
   @Expose()
+  @IsUUID()
+  recordUuid: string;
+
+  @Expose()
   @IsNumberString()
   value: string;
 

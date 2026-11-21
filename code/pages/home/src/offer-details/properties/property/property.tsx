@@ -17,10 +17,12 @@ export const Property: React.FC<IProps> = (props) => {
 
   return (
     <div className={s.wrapper}>
-      <Typography size="caption-l" weight="regular">
-        <dt className={s.label}>{props.field.property.name}</dt>
+      <Typography size="caption-m" weight="regular">
+        <dt className={s.label}>
+          <span className={s.name}>{props.field.property.name}</span>
+        </dt>
       </Typography>
-      <Typography size="caption-l" weight="regular">
+      <Typography size="caption-m" weight="semi-bold">
         <dd className={s.values}>
           {props.field.values.length === 0 ? (
             <span>Не указано</span>

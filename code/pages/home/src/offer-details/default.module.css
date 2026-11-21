@@ -50,26 +50,6 @@
   min-width: 0;
 }
 
-.price {
-  font-variant-numeric: tabular-nums;
-}
-
-.purchase {
-  display: flex;
-  flex-direction: column;
-  gap: var(--numbers-20);
-  min-width: 0;
-}
-
-.singlePurchase {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--numbers-12) var(--numbers-24);
-  min-width: 0;
-}
-
 .description {
   display: flex;
   flex-direction: column;

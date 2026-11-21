@@ -18,7 +18,6 @@ export const Purchase: React.FC = () => {
     <OfferPurchase
       records={offer?.records ?? []}
       items={state.cart?.items}
-      disabled={offer?.currentPrice === null}
       busy={state.busy}
       pendingAction={state.pendingAction}
       activeRecordUuid={state.activeRecordUuid}

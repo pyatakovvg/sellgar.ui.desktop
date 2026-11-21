@@ -7,8 +7,14 @@
   margin: 0;
 }
 .fields {
-  display: flex;
-  flex-direction: column;
-  gap: var(--numbers-12);
+  column-count: 2;
+  column-gap: var(--numbers-64);
+  column-fill: balance;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .fields {
+    column-count: 1;
+  }
 }

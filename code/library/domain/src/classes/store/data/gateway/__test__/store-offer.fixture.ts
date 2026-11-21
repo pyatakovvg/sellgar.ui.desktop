@@ -23,6 +23,14 @@ export const createStoreOffer = (): StoreOfferEntity =>
         uuid: '00000000-0000-4000-8000-000000000005',
         offerUuid,
         article: 'BLUE-S',
+        currentPrice: {
+          uuid: '00000000-0000-4000-8000-000000000010',
+          recordUuid: '00000000-0000-4000-8000-000000000005',
+          value: '1500.00',
+          currencyCode: 'RUB',
+          currency: { code: 'RUB', value: 'руб.', order: 0, createdAt: date, updatedAt: date },
+        },
+
         order: 0,
         version: 1,
         clarifications: [
@@ -45,6 +53,7 @@ export const createStoreOffer = (): StoreOfferEntity =>
         uuid: '00000000-0000-4000-8000-000000000007',
         offerUuid,
         article: 'BLUE-L',
+        currentPrice: null,
         order: 1,
         version: 3,
         clarifications: [],
@@ -61,9 +70,9 @@ export const createStoreOffer = (): StoreOfferEntity =>
         updatedAt: date,
       },
     ],
-    currentPrice: {
-      uuid: '00000000-0000-4000-8000-000000000010',
-      value: '1500.00',
+    priceRange: {
+      min: '1500.00',
+      max: '1500.00',
       currencyCode: 'RUB',
       currency: { code: 'RUB', value: 'руб.', order: 0, createdAt: date, updatedAt: date },
     },
